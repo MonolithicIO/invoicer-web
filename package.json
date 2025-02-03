@@ -1,0 +1,10 @@
+{
+  "name": "invoicer-web",
+  "version": "1.0.0",
+  "description": "web app for invoicer",
+  "main": "index.js",
+  "repository": "https://github.com/alaksiondev/invoicer-web",
+  "author": "Alaksion",
+  "license": "MIT",
+  "private": false
+}
