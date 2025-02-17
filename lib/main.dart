@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoicer_web/features/auth/screens/authmenu/AuthMenuScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home aa'),
+      home: const AuthMenuScreen(),
     );
   }
 }
