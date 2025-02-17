@@ -1,6 +1,8 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:invoicer_web/features/auth/screens/authmenu/components/AuthMenuRightSection.dart';
 
+@RoutePage()
 class AuthMenuScreen extends StatelessWidget {
   const AuthMenuScreen({super.key});
 
