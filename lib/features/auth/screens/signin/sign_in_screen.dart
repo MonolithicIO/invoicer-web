@@ -13,8 +13,6 @@ final class SignInScreen extends StatefulWidget {
 }
 
 final class _SignInScreenState extends State<SignInScreen> {
-  String _email = '';
-  String _password = '';
   bool _passwordCensored = true;
 
   @override
@@ -86,6 +84,14 @@ final class _SignInScreenState extends State<SignInScreen> {
                   autocorrect: false,
                   obscureText: _passwordCensored,
                   maxLines: 1,
+                ),
+                SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                      onPressed: (){},
+                      child: Text("Don't have an account? Sign up")
+                  ),
                 ),
                 SizedBox(height: 16),
                 SizedBox(
