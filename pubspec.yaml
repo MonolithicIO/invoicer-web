@@ -60,6 +60,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: resources/fonts/inter/inter_variable.ttf
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
