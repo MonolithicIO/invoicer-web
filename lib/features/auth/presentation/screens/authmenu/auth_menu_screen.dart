@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:invoicer_web/features/auth/components/auth_container.dart';
-import 'package:invoicer_web/features/auth/screens/authmenu/components/AuthMenuRightSection.dart';
 import 'package:invoicer_web/navigation/app_router.gr.dart';
+
+import '../../components/auth_container.dart';
+import 'components/auth_menu_right_section.dart';
 
 @RoutePage()
 class AuthMenuScreen extends StatelessWidget {
