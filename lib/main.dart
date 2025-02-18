@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:invoicer_web/foundation/di/app_di.dart';
 import 'package:invoicer_web/navigation/app_router.dart';
 
 void main() {
+  configureDependencies("dev");
   runApp(const MyApp());
 }
 

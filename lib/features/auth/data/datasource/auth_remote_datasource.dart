@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 import 'package:invoicer_web/features/auth/data/model/SignInRequestData.dart';
 import 'package:invoicer_web/features/auth/data/model/SignInResponseData.dart';
 
@@ -8,6 +9,7 @@ abstract class AuthRemoteDataSource {
   Future<SignInResponseData> signIn(SignInRequestData request);
 }
 
+@Injectable(as : AuthRemoteDataSource)
 final class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   @override
   Future<SignInResponseData> signIn(SignInRequestData request) async {

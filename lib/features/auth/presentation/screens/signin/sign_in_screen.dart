@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:invoicer_web/features/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:invoicer_web/features/auth/presentation/screens/signin/sign_in_viewmodel.dart';
+import 'package:invoicer_web/foundation/di/app_di.dart';
 import 'package:invoicer_web/navigation/app_router.gr.dart';
 
 import '../../components/auth_container.dart';
@@ -10,7 +10,7 @@ import '../../components/auth_container.dart';
 final class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
-  final SignInViewModel viewModel = SignInViewModel(AuthRemoteDataSourceImpl());
+  final SignInViewModel viewModel = getIt.get();
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,10 @@ final class SignInScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       height: 48,
-                      child: FilledButton(onPressed: () {}, child: Text("Sign in")),
+                      child: FilledButton(
+                        onPressed: () {},
+                        child: Text("Sign in"),
+                      ),
                     ),
                   ],
                 ),
