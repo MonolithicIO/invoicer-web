@@ -51,7 +51,9 @@ final class SignInScreen extends StatelessWidget {
                         label: Text('Email'),
                         prefixIcon: Icon(Icons.email),
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        viewModel.updateEmail(value);
+                      },
                       autocorrect: false,
                       maxLines: 1,
                     ),
@@ -71,7 +73,9 @@ final class SignInScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        viewModel.updatePassword(value);
+                      },
                       autocorrect: false,
                       obscureText: viewModel.passwordCensored,
                       maxLines: 1,
@@ -87,7 +91,9 @@ final class SignInScreen extends StatelessWidget {
                       width: double.infinity,
                       height: 48,
                       child: FilledButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          viewModel.signIn();
+                        },
                         child: Text("Sign in"),
                       ),
                     ),

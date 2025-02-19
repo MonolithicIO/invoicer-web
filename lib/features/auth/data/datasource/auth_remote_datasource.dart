@@ -14,7 +14,10 @@ final class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   @override
   Future<SignInResponseData> signIn(SignInRequestData request) async {
     final response = await http.post(
-      Uri.parse("http://localhost:4000/v1/auth/signin"),
+      Uri.parse("http://localhost:4000/v1/auth/login"),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
       body: jsonEncode(request.toJson()),
     );
 
