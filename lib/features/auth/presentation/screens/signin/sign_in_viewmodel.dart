@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invoicer_web/features/auth/data/datasource/auth_remote_datasource.dart';
-
-import '../../../data/model/SignInRequestData.dart';
+import 'package:invoicer_web/features/auth/domain/model/sign_in_request_model.dart';
+import 'package:invoicer_web/features/auth/domain/repository/auth_repository.dart';
 
 @injectable
 final class SignInViewModel extends ChangeNotifier {
-  SignInViewModel(this.authRemoteDataSource);
+  SignInViewModel(this.authRepository);
 
-  final AuthRemoteDataSource authRemoteDataSource;
+  final AuthRepository authRepository;
 
   var passwordCensored = true;
   var _email = "";
@@ -29,7 +28,9 @@ final class SignInViewModel extends ChangeNotifier {
 
   void signIn() async {
     try {
-      await authRemoteDataSource.signIn(SignInRequestData(email: _email, password: _password));
+      await authRepository.signIn(
+        SignInRequestModel(email: _email, password: _password),
+      );
     } catch (e) {
       print(e);
     }
