@@ -1,4 +1,4 @@
-package foundation.navigation
+package features.ui.navigation
 
 import kotlinx.serialization.Serializable
 
