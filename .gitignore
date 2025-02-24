@@ -11,6 +11,10 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+**/build
+.gradle
+.idea
+.kotlin
 
 # IntelliJ related
 *.iml
