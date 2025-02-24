@@ -1,0 +1,11 @@
+abi_version=1.201.0
+builtins_platform=WASM
+compiler_version=2.1.0
+depends=components.resources\:library components.ui-tooling-preview\:library org.jetbrains.androidx.lifecycle\:lifecycle-viewmodel org.jetbrains.compose.material\:material org.jetbrains.compose.material\:material-ripple org.jetbrains.compose.foundation\:foundation org.jetbrains.compose.animation\:animation org.jetbrains.compose.material\:material-icons-core org.jetbrains.compose.foundation\:foundation-layout org.jetbrains.compose.ui\:ui org.jetbrains.kotlinx\:kotlinx-browser org.jetbrains.androidx.lifecycle\:lifecycle-runtime-compose org.jetbrains.androidx.lifecycle\:lifecycle-runtime org.jetbrains.androidx.lifecycle\:lifecycle-common org.jetbrains.compose.annotation-internal\:annotation org.jetbrains.compose.animation\:animation-core org.jetbrains.kotlinx\:kotlinx-coroutines-core org.jetbrains.kotlinx\:atomicfu org.jetbrains.compose.runtime\:runtime-saveable kotlin org.jetbrains.compose.runtime\:runtime org.jetbrains.compose.ui\:ui-text org.jetbrains.compose.ui\:ui-graphics org.jetbrains.compose.ui\:ui-unit org.jetbrains.skiko\:skiko org.jetbrains.compose.ui\:ui-geometry org.jetbrains.compose.ui\:ui-util
+ir_signature_versions=1,2
+jsOutputName=composeApp
+metadata_version=1.4.1
+serializedIrFileFingerprints=3quksfm06fl12.luac0xqbcoym 3eeat8vyvglwd.377rb19gqoe7j 2t1tgimfkmlxg.3qae843svlt6j 13l8q41l6pvpv.28tquagtjuk9r 3chz8kxy02jmy.odi1sbsul5kq 2psay1v3jtfz0.20ztms563gsmm 36acflq89zpe6.2m274fbzjjpzp ybw9wb4f3zbp.3b4t1mxq350z5
+serializedKlibFingerprint=xn1kczczx7p9.15dmf6r7aqvov
+unique_name=InvoicerWeb\:composeApp
+wasm_targets=wasm-js
