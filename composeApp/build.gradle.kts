@@ -15,6 +15,7 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
+            implementation(libs.compose.navigation)
 
             // App
             implementation(projects.features.data.impl)
