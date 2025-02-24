@@ -29,3 +29,9 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+include(":foundation:navigation")
+include(":features:data:api")
+include(":features:data:impl")
+include(":features:domain:api")
+include(":features:domain:impl")
+include(":features:domain:test")

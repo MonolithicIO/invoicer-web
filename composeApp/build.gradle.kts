@@ -44,6 +44,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.compose.navigation)
             implementation(libs.kotlin.serialization)
+
+            // App
+            implementation(projects.features.data.impl)
+            implementation(projects.features.domain.impl)
         }
     }
 }

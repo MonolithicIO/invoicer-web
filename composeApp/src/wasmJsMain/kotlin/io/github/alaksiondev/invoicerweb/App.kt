@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import features.data.impl.di.dataDiModule
+import features.domain.impl.di.domainDiModule
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.context.startKoin
@@ -23,7 +25,7 @@ data object Test2
 @Composable
 fun App() {
     startKoin {
-        modules(module)
+        modules(dataDiModule, domainDiModule)
     }
 
     MaterialTheme {
