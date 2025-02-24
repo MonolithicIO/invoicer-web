@@ -13,3 +13,12 @@ repositories {
 dependencies {
     implementation(libs.gradle.plugin.kmp)
 }
+
+gradlePlugin {
+    plugins {
+        create("invoicer-wasm") {
+            id = "invoicer.wasm.library"
+            implementationClass = "buildlogic.plugins.WasmLibraryPlugin"
+        }
+    }
+}
