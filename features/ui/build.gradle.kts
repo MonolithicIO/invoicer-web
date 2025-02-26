@@ -22,6 +22,7 @@ kotlin {
         implementation(compose.components.uiToolingPreview)
         implementation(projects.features.domain.api)
         implementation(projects.foundation)
+        implementation(libs.kotlin.collections)
     }
 }
 

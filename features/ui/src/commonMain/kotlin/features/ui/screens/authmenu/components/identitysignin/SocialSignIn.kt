@@ -1,4 +1,4 @@
-package features.ui.screens.authmenu.components
+package features.ui.screens.authmenu.components.identitysignin
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
