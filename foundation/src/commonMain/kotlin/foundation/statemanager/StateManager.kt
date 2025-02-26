@@ -33,7 +33,7 @@ interface StateOwner<T> {
      * [block] is successfully executed. Defaults to true.
      * */
     suspend fun updateState(
-        showLoading: Boolean = true,
+        showLoading: Boolean = false,
         resumeOnContentMode: Boolean = true,
         block: suspend StateManager<T>.StateUpdater<T>.() -> Unit,
     )
