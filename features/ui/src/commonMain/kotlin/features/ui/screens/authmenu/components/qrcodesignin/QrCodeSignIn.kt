@@ -3,10 +3,12 @@ package features.ui.screens.authmenu.components.qrcodesignin
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import features.ui.designsystem.components.NumberedList
 import features.ui.designsystem.tokens.Spacing
 import invoicerweb.features.ui.generated.resources.Res
@@ -24,9 +26,12 @@ internal fun QrCodeSignIn(
     ) {
         Text(
             text = "Open the Invoicer app and scan the QR code",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
         )
 
         NumberedList(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
             items = persistentListOf(
                 "Open the Invoicer app",
                 "Tap on the QR code icon",
@@ -37,7 +42,7 @@ internal fun QrCodeSignIn(
         Image(
             painter = painterResource(Res.drawable.fake_qrcode),
             contentDescription = null,
-            alignment = Alignment.Center
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         )
     }
 }

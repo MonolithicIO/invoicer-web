@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +34,8 @@ internal fun AuthMenuRightSection(
     onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val tabIndex = remember { mutableStateOf(0) }
+
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
@@ -53,23 +57,35 @@ internal fun AuthMenuRightSection(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            IdentitySignInForm(
-                modifier = Modifier.fillMaxWidth(),
-                emailState = emailState,
-                onChangeEmail = onChangeEmail,
-                passwordState = passwordState,
-                onChangePassword = onChangePassword,
-                passwordVisibility = passwordVisibility,
-                onTogglePasswordVisibility = onTogglePasswordVisibility,
-                isButtonEnabled = isButtonEnabled,
-                onGoogleSignIn = onGoogleSignIn,
-                onFacebookSignIn = onFacebookSignIn,
-                onAppleSignIn = onAppleSignIn,
-            )
-
-            QrCodeSignIn(
+            AuthMenuTabs(
+                selectedTab = tabIndex.value,
+                onSelectTab = { tabIndex.value = it },
                 modifier = Modifier.fillMaxWidth()
             )
+
+            when (tabIndex.value) {
+                0 -> {
+                    IdentitySignInForm(
+                        modifier = Modifier.fillMaxWidth(),
+                        emailState = emailState,
+                        onChangeEmail = onChangeEmail,
+                        passwordState = passwordState,
+                        onChangePassword = onChangePassword,
+                        passwordVisibility = passwordVisibility,
+                        onTogglePasswordVisibility = onTogglePasswordVisibility,
+                        isButtonEnabled = isButtonEnabled,
+                        onGoogleSignIn = onGoogleSignIn,
+                        onFacebookSignIn = onFacebookSignIn,
+                        onAppleSignIn = onAppleSignIn,
+                    )
+                }
+
+                1 -> {
+                    QrCodeSignIn(
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
         }
     }
 }

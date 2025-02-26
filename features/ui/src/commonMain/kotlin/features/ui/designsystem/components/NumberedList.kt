@@ -44,7 +44,7 @@ private fun ItemIndex(
 ) {
     Box(
         modifier = Modifier
-            .size(16.dp)
+            .size(24.dp)
             .clip(CircleShape)
             .background(MaterialTheme.colors.onSurface),
         contentAlignment = Alignment.Center
