@@ -4,4 +4,10 @@
     <string name="auth_menu_sign_up_now">Sign up now</string>
     <string name="auth_menu_login_button">Login</string>
     <string name="auth_menu_sign_up_button">Create an account</string>
+
+    <!-- Sign in form -->
+    <string name="auth_sign_in_email_label">E-mail</string>
+    <string name="auth_sign_in_email_placeholder">johndoe@gmail.com</string>
+    <string name="auth_sign_in_password_label">Password</string>
+    <string name="auth_sign_in_password_placeholder">123456</string>
 </resources>

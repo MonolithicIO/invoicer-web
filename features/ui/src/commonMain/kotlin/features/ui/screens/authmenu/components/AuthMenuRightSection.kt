@@ -18,9 +18,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import invoicerweb.features.ui.generated.resources.Res
-import invoicerweb.features.ui.generated.resources.auth_menu_login_button
-import invoicerweb.features.ui.generated.resources.auth_menu_welcome
+import invoicerweb.features.ui.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -106,6 +104,12 @@ private fun EmailField(
                 imageVector = Icons.Default.Email,
                 contentDescription = null
             )
+        },
+        placeholder = {
+            Text(text = stringResource(Res.string.auth_sign_in_email_placeholder))
+        },
+        label = {
+            Text(text = stringResource(Res.string.auth_sign_in_email_label))
         }
     )
 }
@@ -149,6 +153,12 @@ private fun PasswordField(
                 )
             }
         },
-        visualTransformation = transformation
+        visualTransformation = transformation,
+        placeholder = {
+            Text(text = stringResource(Res.string.auth_sign_in_password_placeholder))
+        },
+        label = {
+            Text(text = stringResource(Res.string.auth_sign_in_password_label))
+        }
     )
 }
