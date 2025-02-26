@@ -37,6 +37,19 @@ interface StateOwner<T> {
         resumeOnContentMode: Boolean = true,
         block: suspend StateManager<T>.StateUpdater<T>.() -> Unit,
     )
+
+    /**
+     * Launches a context with default error handling and loading state management. Unhandled exceptions
+     * will automatically set the state to [StateMode.Error]. Use [resumeOnContentMode] to customize
+     * the behavior of the state manager.
+     *
+     * @param resumeOnContentMode Whether the state mode should be set to [StateMode.Content] after
+     * [block] is successfully executed. Defaults to true.
+     * */
+    fun updateStateSync(
+        resumeOnContentMode: Boolean = true,
+        block: StateManager<T>.StateUpdater<T>.() -> Unit,
+    )
 }
 
 class StateManager<T>(
@@ -47,6 +60,26 @@ class StateManager<T>(
     private val stateUpdater = StateUpdater(_state)
 
     override val state: StateFlow<UiState<T>> = _state
+
+    override fun updateStateSync(
+        resumeOnContentMode: Boolean,
+        block: StateUpdater<T>.() -> Unit
+    ) {
+        val resumeMode = runCatching {
+            block(stateUpdater)
+        }.fold(
+            onSuccess = {
+                if (resumeOnContentMode) StateMode.Content
+                else null
+            },
+            onFailure = {
+                StateMode.Error(it)
+            }
+        )
+        resumeMode?.let { mode ->
+            _state.update { oldState -> oldState.copy(mode = mode) }
+        }
+    }
 
     override suspend fun updateState(
         showLoading: Boolean,

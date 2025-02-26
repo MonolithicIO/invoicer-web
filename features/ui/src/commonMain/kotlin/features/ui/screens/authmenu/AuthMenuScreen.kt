@@ -40,9 +40,9 @@ internal fun AuthMenuScreen(
                 emailState = state.data.email,
                 onChangeEmail = viewModel::updateEmail,
                 passwordState = state.data.password,
-                onChangePassword = {},
+                onChangePassword = viewModel::updatePassword,
                 passwordVisibility = state.data.passwordVisibility,
-                onTogglePasswordVisibility = {},
+                onTogglePasswordVisibility = viewModel::togglePasswordVisibility,
                 isButtonEnabled = true,
             )
         }

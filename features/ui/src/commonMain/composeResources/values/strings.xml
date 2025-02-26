@@ -1,4 +1,7 @@
 <resources>
-    <string name="auth_menu_login_button">Continue with e-mail and password</string>
+    <string name="auth_menu_welcome">Welcome to Invoicer</string>
+    <string name="auth_menu_new_user">Don't have an account? </string>
+    <string name="auth_menu_sign_up_now">Sign up now</string>
+    <string name="auth_menu_login_button">Login</string>
     <string name="auth_menu_sign_up_button">Create an account</string>
 </resources>
