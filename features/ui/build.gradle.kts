@@ -16,9 +16,15 @@ kotlin {
         implementation(compose.runtime)
         implementation(compose.foundation)
         implementation(compose.material)
+        implementation(compose.materialIconsExtended)
         implementation(compose.ui)
         implementation(compose.components.resources)
         implementation(compose.components.uiToolingPreview)
         implementation(projects.features.domain.api)
     }
+}
+
+compose.resources {
+    publicResClass = false
+    generateResClass = always
 }

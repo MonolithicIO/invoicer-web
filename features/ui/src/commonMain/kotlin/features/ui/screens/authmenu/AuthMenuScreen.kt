@@ -29,12 +29,12 @@ internal fun AuthMenuScreen(
                     .background(MaterialTheme.colors.primaryVariant)
             )
 
-            AuthMenuRightSection(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .background(MaterialTheme.colors.primarySurface)
-            )
+//            AuthMenuRightSection(
+//                modifier = Modifier
+//                    .weight(1f)
+//                    .fillMaxHeight()
+//                    .background(MaterialTheme.colors.primarySurface)
+//            )
         }
     }
 }

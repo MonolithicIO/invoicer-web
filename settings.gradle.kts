@@ -29,7 +29,7 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
-include(":foundation:navigation")
+include(":foundation")
 include(":features:data:api")
 include(":features:data:impl")
 include(":features:domain:api")

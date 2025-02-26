@@ -1,0 +1,4 @@
+<resources>
+    <string name="auth_menu_login_button">Continue with e-mail and password</string>
+    <string name="auth_menu_sign_up_button">Create an account</string>
+</resources>
