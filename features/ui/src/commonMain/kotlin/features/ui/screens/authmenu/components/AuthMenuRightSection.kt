@@ -32,6 +32,10 @@ internal fun AuthMenuRightSection(
     passwordVisibility: Boolean,
     onTogglePasswordVisibility: () -> Unit,
     isButtonEnabled: Boolean,
+    onGoogleSignIn: () -> Unit,
+    onFacebookSignIn: () -> Unit,
+    onAppleSignIn: () -> Unit,
+    onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -50,7 +54,7 @@ internal fun AuthMenuRightSection(
             )
 
             SignUpButton(
-                onClick = { /*TODO*/ },
+                onClick = onSignUpClick,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -75,6 +79,13 @@ internal fun AuthMenuRightSection(
             ) {
                 Text(text = stringResource(Res.string.auth_menu_login_button))
             }
+
+            SocialSignIn(
+                modifier = Modifier.fillMaxWidth(),
+                onGoogleSignIn = onGoogleSignIn,
+                onFacebookSignIn = onFacebookSignIn,
+                onAppleSignIn = onAppleSignIn,
+            )
         }
     }
 }

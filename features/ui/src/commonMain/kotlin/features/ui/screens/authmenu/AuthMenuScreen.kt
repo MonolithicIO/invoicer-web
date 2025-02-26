@@ -44,6 +44,10 @@ internal fun AuthMenuScreen(
                 passwordVisibility = state.data.passwordVisibility,
                 onTogglePasswordVisibility = viewModel::togglePasswordVisibility,
                 isButtonEnabled = true,
+                onGoogleSignIn = {},
+                onFacebookSignIn = {},
+                onAppleSignIn = {},
+                onSignUpClick = {},
             )
         }
     }
