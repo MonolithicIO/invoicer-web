@@ -21,6 +21,7 @@ kotlin {
             implementation(projects.features.data.impl)
             implementation(projects.features.domain.impl)
             implementation(projects.features.ui)
+            implementation(projects.foundation)
         }
     }
 }

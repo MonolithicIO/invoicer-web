@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import features.data.impl.di.dataDiModule
 import features.domain.impl.di.domainDiModule
 import features.ui.di.uiDiModule
+import foundation.di.foundationDiModule
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.koin.core.context.startKoin
@@ -17,7 +18,7 @@ import org.koin.core.context.startKoin
 fun main() {
     ComposeViewport(document.body!!) {
         startKoin {
-            modules(dataDiModule, domainDiModule, uiDiModule)
+            modules(dataDiModule, domainDiModule, uiDiModule, foundationDiModule)
         }
         val navController = rememberNavController()
 

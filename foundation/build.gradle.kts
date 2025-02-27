@@ -16,6 +16,10 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.ui)
                 implementation(libs.kotlin.coroutines.core)
+                implementation(libs.kotlin.serialization)
+                implementation(libs.bundles.ktor)
+                implementation(project.dependencies.platform(libs.koin.bom))
+                implementation(libs.koin.core)
             }
         }
 
@@ -23,6 +27,12 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotlin.coroutines.test)
+            }
+        }
+
+        wasmJsMain {
+            dependencies {
+                implementation(libs.ktor.js)
             }
         }
     }
