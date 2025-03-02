@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import features.ui.screens.authmenu.components.AuthMenuLeftSection
 import features.ui.screens.authmenu.components.AuthMenuRightSection
+import foundation.statemanager.StateMode
 
 @Composable
 internal fun AuthMenuScreen(
@@ -43,11 +44,12 @@ internal fun AuthMenuScreen(
                 onChangePassword = viewModel::updatePassword,
                 passwordVisibility = state.data.passwordVisibility,
                 onTogglePasswordVisibility = viewModel::togglePasswordVisibility,
-                isButtonEnabled = true,
+                isButtonEnabled = state.data.buttonEnabled,
                 onGoogleSignIn = {},
                 onFacebookSignIn = {},
                 onAppleSignIn = {},
                 onSignUpClick = {},
+                isFormEnabled = state.mode !is StateMode.Loading
             )
         }
     }

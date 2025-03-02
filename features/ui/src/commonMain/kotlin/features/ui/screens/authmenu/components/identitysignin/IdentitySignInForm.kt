@@ -28,6 +28,7 @@ internal fun IdentitySignInForm(
     passwordVisibility: Boolean,
     onTogglePasswordVisibility: () -> Unit,
     isButtonEnabled: Boolean,
+    isFormEnabled: Boolean,
     onGoogleSignIn: () -> Unit,
     onFacebookSignIn: () -> Unit,
     onAppleSignIn: () -> Unit,
@@ -39,7 +40,8 @@ internal fun IdentitySignInForm(
         EmailField(
             modifier = modifier,
             value = emailState,
-            onChange = onChangeEmail
+            onChange = onChangeEmail,
+            isEnabled = isFormEnabled
         )
 
         PasswordField(
@@ -48,6 +50,7 @@ internal fun IdentitySignInForm(
             passwordVisibility = passwordVisibility,
             onTogglePasswordVisibility = onTogglePasswordVisibility,
             modifier = Modifier.fillMaxWidth(),
+            isEnabled = isFormEnabled
         )
 
         Button(
@@ -70,6 +73,7 @@ internal fun IdentitySignInForm(
 @Composable
 private fun EmailField(
     value: String,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier,
     onChange: (String) -> Unit,
 ) {
@@ -89,7 +93,8 @@ private fun EmailField(
         },
         label = {
             Text(text = stringResource(Res.string.auth_sign_in_email_label))
-        }
+        },
+        enabled = isEnabled
     )
 }
 
@@ -97,6 +102,7 @@ private fun EmailField(
 private fun PasswordField(
     value: String,
     passwordVisibility: Boolean,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier,
     onTogglePasswordVisibility: () -> Unit,
     onChange: (String) -> Unit,
@@ -138,6 +144,7 @@ private fun PasswordField(
         },
         label = {
             Text(text = stringResource(Res.string.auth_sign_in_password_label))
-        }
+        },
+        enabled = isEnabled
     )
 }

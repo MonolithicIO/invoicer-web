@@ -50,6 +50,14 @@ interface StateOwner<T> {
         resumeOnContentMode: Boolean = true,
         block: StateManager<T>.StateUpdater<T>.() -> Unit,
     )
+
+    /**
+     * Launches a suspend context with default error handling and loading state management. Unhandled exceptions
+     * will set the state to [StateMode.Error]. Use this method when you don't need to update the state.
+     */
+    suspend fun launchAsync(
+        block: suspend () -> Unit
+    )
 }
 
 class StateManager<T>(
@@ -60,6 +68,14 @@ class StateManager<T>(
     private val stateUpdater = StateUpdater(_state)
 
     override val state: StateFlow<UiState<T>> = _state
+
+    override suspend fun launchAsync(block: suspend () -> Unit) {
+        runCatching {
+            block()
+        }.onFailure {
+            _state.update { oldState -> oldState.copy(mode = StateMode.Error(it)) }
+        }
+    }
 
     override fun updateStateSync(
         resumeOnContentMode: Boolean,
