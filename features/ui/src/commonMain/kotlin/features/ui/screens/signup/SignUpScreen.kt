@@ -6,11 +6,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import features.ui.screens.signup.components.SignUpLeftSection
-import features.ui.screens.signup.components.SignUpRightSection
+import features.ui.screens.signup.components.rightsection.SignUpRightSection
 
 @Composable
 internal fun SignUpScreen(
@@ -36,6 +35,6 @@ internal fun SignUpScreen(
                 onBack = onBack
             )
         }
-        Text("Sign up")
     }
 }
+

@@ -17,19 +17,19 @@ fun AppNavigator(
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navController,
-        startDestination = InvoicerRoute.Auth.AuthMenu
+        startDestination = "auth_menu"
     ) {
 
-        composable<InvoicerRoute.Auth.AuthMenu> {
+        composable("auth_menu") {
             AuthMenuScreen(
                 viewModel = koinViewModel(),
                 onGoToSignUp = {
-                    navController.navigate(InvoicerRoute.Auth.SignUp)
+                    navController.navigate("sign_up")
                 }
             )
         }
 
-        composable<InvoicerRoute.Auth.SignUp> {
+        composable("sign_up") {
             SignUpScreen(
                 onBack = {
                     navController.popBackStack()
