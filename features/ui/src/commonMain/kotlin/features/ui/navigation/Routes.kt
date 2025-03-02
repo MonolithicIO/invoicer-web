@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface InvoicerRoute {
 
+    @Serializable
     sealed interface Auth : InvoicerRoute {
 
         @Serializable

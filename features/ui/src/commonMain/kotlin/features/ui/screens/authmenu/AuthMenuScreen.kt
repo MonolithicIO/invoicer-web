@@ -21,7 +21,8 @@ import foundation.statemanager.StateMode
 @Composable
 internal fun AuthMenuScreen(
     modifier: Modifier = Modifier,
-    viewModel: AuthMenuViewModel
+    viewModel: AuthMenuViewModel,
+    onGoToSignUp: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHost = remember { SnackbarHostState() }
@@ -66,7 +67,7 @@ internal fun AuthMenuScreen(
                 onGoogleSignIn = {},
                 onFacebookSignIn = {},
                 onAppleSignIn = {},
-                onSignUpClick = {},
+                onSignUpClick = onGoToSignUp,
                 isFormEnabled = state.mode !is StateMode.Loading,
                 onEmailSignIn = viewModel::emailSignIn
             )

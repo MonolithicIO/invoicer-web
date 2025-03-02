@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import features.ui.screens.authmenu.AuthMenuScreen
+import features.ui.screens.signup.SignUpScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -21,12 +22,19 @@ fun AppNavigator(
 
         composable<InvoicerRoute.Auth.AuthMenu> {
             AuthMenuScreen(
-                viewModel = koinViewModel()
+                viewModel = koinViewModel(),
+                onGoToSignUp = {
+                    navController.navigate(InvoicerRoute.Auth.SignUp)
+                }
             )
         }
 
         composable<InvoicerRoute.Auth.SignUp> {
-
+            SignUpScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable<InvoicerRoute.Auth.SignIn> {
