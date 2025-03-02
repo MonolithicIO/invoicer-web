@@ -29,6 +29,7 @@ internal fun AuthMenuRightSection(
     onTogglePasswordVisibility: () -> Unit,
     isFormEnabled: Boolean,
     isButtonEnabled: Boolean,
+    onEmailSignIn: () -> Unit,
     onGoogleSignIn: () -> Unit,
     onFacebookSignIn: () -> Unit,
     onAppleSignIn: () -> Unit,
@@ -78,7 +79,8 @@ internal fun AuthMenuRightSection(
                         onGoogleSignIn = onGoogleSignIn,
                         onFacebookSignIn = onFacebookSignIn,
                         onAppleSignIn = onAppleSignIn,
-                        isFormEnabled = isFormEnabled
+                        isFormEnabled = isFormEnabled,
+                        onEmailSignIn = onEmailSignIn
                     )
                 }
 

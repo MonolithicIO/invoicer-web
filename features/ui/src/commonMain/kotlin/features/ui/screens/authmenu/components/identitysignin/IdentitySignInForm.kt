@@ -29,6 +29,7 @@ internal fun IdentitySignInForm(
     onTogglePasswordVisibility: () -> Unit,
     isButtonEnabled: Boolean,
     isFormEnabled: Boolean,
+    onEmailSignIn: () -> Unit,
     onGoogleSignIn: () -> Unit,
     onFacebookSignIn: () -> Unit,
     onAppleSignIn: () -> Unit,
@@ -54,7 +55,7 @@ internal fun IdentitySignInForm(
         )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = onEmailSignIn,
             enabled = isButtonEnabled,
             modifier = Modifier.fillMaxWidth()
         ) {

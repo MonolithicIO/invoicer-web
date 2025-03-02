@@ -49,7 +49,8 @@ internal fun AuthMenuScreen(
                 onFacebookSignIn = {},
                 onAppleSignIn = {},
                 onSignUpClick = {},
-                isFormEnabled = state.mode !is StateMode.Loading
+                isFormEnabled = state.mode !is StateMode.Loading,
+                onEmailSignIn = viewModel::emailSignIn
             )
         }
     }

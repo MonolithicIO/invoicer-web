@@ -8,7 +8,8 @@ import org.koin.dsl.module
 val uiDiModule = module {
     viewModel {
         AuthMenuViewModel(
-            dispatcher = Dispatchers.Default
+            dispatcher = Dispatchers.Default,
+            loginService = get()
         )
     }
 }

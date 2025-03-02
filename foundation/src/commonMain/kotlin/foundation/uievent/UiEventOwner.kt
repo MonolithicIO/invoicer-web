@@ -10,7 +10,7 @@ interface UiEventOwner<T> {
     suspend fun sendEvent(event: T)
 }
 
-class UiEventHandler<T> : UiEventOwner<T> {
+class UiEventManager<T> : UiEventOwner<T> {
     private val _events = MutableSharedFlow<T>()
 
     override val events: SharedFlow<T> =
