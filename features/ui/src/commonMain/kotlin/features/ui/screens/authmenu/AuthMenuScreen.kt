@@ -6,8 +6,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import features.ui.screens.authmenu.components.AuthMenuLeftSection
@@ -20,9 +24,23 @@ internal fun AuthMenuScreen(
     viewModel: AuthMenuViewModel
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val snackbarHost = remember { SnackbarHostState() }
+
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is AuthMenuEvents.Error -> snackbarHost.showSnackbar(message = event.message)
+            }
+        }
+    }
 
     Scaffold(
-        modifier = modifier
+        modifier = modifier,
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHost,
+            )
+        }
     ) {
         Row(
             modifier = Modifier.fillMaxSize()
