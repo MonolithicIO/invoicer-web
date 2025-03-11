@@ -27,6 +27,7 @@ internal fun QrCodeSignIn(
     modifier: Modifier = Modifier,
     codeState: QrCodeState,
     qrCodeString: String,
+    qrCodeExpiration: String,
     onRequestQrCode: (isRetry: Boolean) -> Unit,
 ) {
     LaunchedEffect(Unit) { onRequestQrCode(false) }
@@ -99,6 +100,10 @@ internal fun QrCodeSignIn(
                     Image(
                         bitmap = qrCode,
                         contentDescription = null
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Text(
+                        text = "Expires in ${qrCodeExpiration}"
                     )
                 }
             }

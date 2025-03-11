@@ -75,7 +75,8 @@ internal fun AuthMenuScreen(
                     else viewModel.requestLoginCode()
                 },
                 qrCodeState = state.data.qrCodeState,
-                qrCode = state.data.qrCodeBase64
+                qrCode = state.data.qrCodeBase64,
+                qrCodeExpiration = state.data.qrCodeExpirationTimer
             )
         }
     }

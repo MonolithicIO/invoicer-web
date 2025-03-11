@@ -11,16 +11,23 @@ import foundation.statemanager.StateOwner
 import foundation.uievent.UiEventManager
 import foundation.uievent.UiEventOwner
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlin.time.Duration.Companion.seconds
 
 internal class AuthMenuViewModel(
     private val dispatcher: CoroutineDispatcher,
     private val loginService: LoginService,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val clock: Clock
 ) : ViewModel(), StateOwner<AuthMenuState> by StateManager(AuthMenuState()),
     UiEventOwner<AuthMenuEvents> by UiEventManager() {
 
     private var isFirstQrCodeRequest: Boolean = false
+    private var timerJob: Job? = null
+    private lateinit var codeExpiration: Instant
 
     fun updateEmail(value: String) {
         updateStateSync {
@@ -86,12 +93,32 @@ internal class AuthMenuViewModel(
                     }
                 }.onSuccess { response ->
                     update { oldState ->
+                        codeExpiration = response.expiration
+                        startTimer()
                         oldState.copy(
                             qrCodeState = QrCodeState.Available,
                             qrCodeBase64 = response.base64Content,
-                            qrCodeExpirationTimer = response.expiration.toString()
                         )
                     }
+                }
+            }
+        }
+    }
+
+    private fun startTimer() {
+        timerJob = viewModelScope.launch(dispatcher) {
+            while (true) {
+                val newDuration = codeExpiration - clock.now()
+                if (newDuration > 0.seconds) {
+                    updateState {
+                        update {
+                            it.copy(qrCodeExpirationTimer = newDuration.inWholeSeconds.toString())
+                        }
+                    }
+                    kotlinx.coroutines.delay(1000)
+                } else {
+                    requestNewCode()
+                    startTimer()
                 }
             }
         }

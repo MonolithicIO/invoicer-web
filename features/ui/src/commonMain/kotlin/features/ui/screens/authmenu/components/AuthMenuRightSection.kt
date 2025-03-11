@@ -32,6 +32,7 @@ internal fun AuthMenuRightSection(
     isButtonEnabled: Boolean,
     qrCodeState: QrCodeState,
     qrCode: String,
+    qrCodeExpiration: String,
     onEmailSignIn: () -> Unit,
     onGoogleSignIn: () -> Unit,
     onFacebookSignIn: () -> Unit,
@@ -93,7 +94,8 @@ internal fun AuthMenuRightSection(
                         modifier = Modifier.fillMaxWidth(),
                         onRequestQrCode = onRequestQrCode,
                         codeState = qrCodeState,
-                        qrCodeString = qrCode
+                        qrCodeString = qrCode,
+                        qrCodeExpiration = qrCodeExpiration
                     )
                 }
             }
