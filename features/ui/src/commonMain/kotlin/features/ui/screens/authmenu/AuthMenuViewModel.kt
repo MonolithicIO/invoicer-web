@@ -117,11 +117,11 @@ internal class AuthMenuViewModel(
                     }
                     kotlinx.coroutines.delay(1000)
                 } else {
-                    requestNewCode()
-                    startTimer()
+                    break
                 }
             }
         }
+        timerJob?.invokeOnCompletion { requestNewCode() }
     }
 
     private suspend fun handleError(

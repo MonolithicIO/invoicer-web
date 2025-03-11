@@ -103,7 +103,7 @@ internal fun QrCodeSignIn(
                     )
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        text = "Expires in ${qrCodeExpiration}"
+                        text = "Expires in ${qrCodeExpiration} seconds"
                     )
                 }
             }
