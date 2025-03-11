@@ -23,6 +23,7 @@ kotlin {
         implementation(projects.features.domain.api)
         implementation(projects.foundation)
         implementation(libs.kotlin.collections)
+        implementation(libs.kotlin.datetime)
     }
 }
 

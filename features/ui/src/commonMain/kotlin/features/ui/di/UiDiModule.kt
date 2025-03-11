@@ -9,7 +9,8 @@ val uiDiModule = module {
     viewModel {
         AuthMenuViewModel(
             dispatcher = Dispatchers.Default,
-            loginService = get()
+            loginService = get(),
+            authRepository = get()
         )
     }
 }

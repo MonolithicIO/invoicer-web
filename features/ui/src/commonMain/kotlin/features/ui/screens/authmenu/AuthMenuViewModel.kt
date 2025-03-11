@@ -2,6 +2,7 @@ package features.ui.screens.authmenu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import features.domain.api.auth.repository.AuthRepository
 import features.domain.api.auth.service.LoginService
 import foundation.network.HttpResponse
 import foundation.network.launchRequest
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 
 internal class AuthMenuViewModel(
     private val dispatcher: CoroutineDispatcher,
-    private val loginService: LoginService
+    private val loginService: LoginService,
+    private val authRepository: AuthRepository
 ) : ViewModel(), StateOwner<AuthMenuState> by StateManager(AuthMenuState()),
     UiEventOwner<AuthMenuEvents> by UiEventManager() {
 
@@ -54,6 +56,29 @@ internal class AuthMenuViewModel(
                 }
 
                 is HttpResponse.Failure -> handleError(result)
+            }
+        }
+    }
+
+    fun requestLoginCode() {
+        viewModelScope.launch(dispatcher) {
+            updateState {
+                update { it.copy(qrCodeState = QrCodeState.Loading) }
+                runCatching {
+                    authRepository.requestLoginQrCode()
+                }.onFailure {
+                    update {
+                        it.copy(qrCodeState = QrCodeState.Error)
+                    }
+                }.onSuccess { response ->
+                    update { oldState ->
+                        oldState.copy(
+                            qrCodeState = QrCodeState.Available,
+                            qrCodeBase64 = response.base64Content,
+                            qrCodeExpirationTimer = response.expiration.toString()
+                        )
+                    }
+                }
             }
         }
     }
