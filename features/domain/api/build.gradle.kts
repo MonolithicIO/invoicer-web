@@ -4,6 +4,10 @@ plugins {
 
 kotlin {
     sourceSets {
-        commonMain
+        commonMain {
+            dependencies {
+                implementation(libs.kotlin.datetime)
+            }
+        }
     }
 }

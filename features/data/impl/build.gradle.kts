@@ -13,6 +13,7 @@ kotlin {
                 implementation(projects.foundation)
                 implementation(libs.kotlin.coroutines.core)
                 implementation(libs.ktor.core)
+                implementation(libs.kotlin.datetime)
             }
         }
         commonTest {

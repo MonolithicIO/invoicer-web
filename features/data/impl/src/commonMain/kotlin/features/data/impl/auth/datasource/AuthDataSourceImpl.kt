@@ -4,6 +4,7 @@ import features.data.api.auth.datasource.AuthDataSource
 import features.data.api.auth.model.AuthTokenResponseData
 import features.data.api.auth.model.CreateAccountRequestData
 import features.data.api.auth.model.LoginRequestData
+import features.data.api.auth.model.QrCodeResponse
 import foundation.network.HttpWrapper
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -28,5 +29,11 @@ internal class AuthDataSourceImpl(
                 setBody(requestData)
             }
         }.body()
+    }
+
+    override suspend fun requestLoginQrCode(): QrCodeResponse {
+        return withContext(dispatcher) {
+            httpWrapper.client.post("/v1/auth/login/code").body()
+        }
     }
 }

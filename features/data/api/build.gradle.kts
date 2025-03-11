@@ -6,5 +6,6 @@ plugins {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(libs.kotlin.serialization)
+        implementation(libs.kotlin.datetime)
     }
 }

@@ -4,6 +4,7 @@ import features.data.api.auth.datasource.AuthDataSource
 import features.data.api.auth.model.CreateAccountRequestData
 import features.data.api.auth.model.LoginRequestData
 import features.domain.api.auth.model.AuthTokenModel
+import features.domain.api.auth.model.QrCodeModel
 import features.domain.api.auth.repository.AuthRepository
 
 internal class AuthRepositoryImpl(
@@ -32,6 +33,15 @@ internal class AuthRepositoryImpl(
                 confirmEmail = confirmEmail,
                 password = password
             )
+        )
+    }
+
+    override suspend fun requestLoginQrCode(): QrCodeModel {
+        val response = dataSource.requestLoginQrCode()
+        return QrCodeModel(
+            base64Content = response.base64Content,
+            rawContent = response.rawContent,
+            expiration = response.expiration
         )
     }
 }
