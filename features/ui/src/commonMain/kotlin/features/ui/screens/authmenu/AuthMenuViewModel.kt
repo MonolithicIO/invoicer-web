@@ -20,6 +20,8 @@ internal class AuthMenuViewModel(
 ) : ViewModel(), StateOwner<AuthMenuState> by StateManager(AuthMenuState()),
     UiEventOwner<AuthMenuEvents> by UiEventManager() {
 
+    private var isFirstQrCodeRequest: Boolean = false
+
     fun updateEmail(value: String) {
         updateStateSync {
             update {
@@ -61,13 +63,25 @@ internal class AuthMenuViewModel(
     }
 
     fun requestLoginCode() {
+        if (isFirstQrCodeRequest.not()) {
+            requestNewCode()
+            isFirstQrCodeRequest = true
+        }
+    }
+
+    fun retryLoginCode() {
+        requestNewCode()
+    }
+
+    private fun requestNewCode() {
         viewModelScope.launch(dispatcher) {
             updateState {
                 update { it.copy(qrCodeState = QrCodeState.Loading) }
                 runCatching {
                     authRepository.requestLoginQrCode()
-                }.onFailure {
+                }.onFailure { error ->
                     update {
+                        println(error)
                         it.copy(qrCodeState = QrCodeState.Error)
                     }
                 }.onSuccess { response ->

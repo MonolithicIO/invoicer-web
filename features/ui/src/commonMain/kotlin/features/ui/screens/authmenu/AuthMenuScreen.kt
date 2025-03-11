@@ -69,7 +69,13 @@ internal fun AuthMenuScreen(
                 onAppleSignIn = {},
                 onSignUpClick = onGoToSignUp,
                 isFormEnabled = state.mode !is StateMode.Loading,
-                onEmailSignIn = viewModel::emailSignIn
+                onEmailSignIn = viewModel::emailSignIn,
+                onRequestQrCode = { isRetry ->
+                    if (isRetry) viewModel.retryLoginCode()
+                    else viewModel.requestLoginCode()
+                },
+                qrCodeState = state.data.qrCodeState,
+                qrCode = state.data.qrCodeBase64
             )
         }
     }

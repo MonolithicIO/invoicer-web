@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import features.ui.designsystem.tokens.Spacing
+import features.ui.screens.authmenu.QrCodeState
 import features.ui.screens.authmenu.components.identitysignin.IdentitySignInForm
 import features.ui.screens.authmenu.components.qrcodesignin.QrCodeSignIn
 import invoicerweb.features.ui.generated.resources.Res
@@ -29,11 +30,14 @@ internal fun AuthMenuRightSection(
     onTogglePasswordVisibility: () -> Unit,
     isFormEnabled: Boolean,
     isButtonEnabled: Boolean,
+    qrCodeState: QrCodeState,
+    qrCode: String,
     onEmailSignIn: () -> Unit,
     onGoogleSignIn: () -> Unit,
     onFacebookSignIn: () -> Unit,
     onAppleSignIn: () -> Unit,
     onSignUpClick: () -> Unit,
+    onRequestQrCode: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val tabIndex = remember { mutableStateOf(0) }
@@ -86,7 +90,10 @@ internal fun AuthMenuRightSection(
 
                 1 -> {
                     QrCodeSignIn(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        onRequestQrCode = onRequestQrCode,
+                        codeState = qrCodeState,
+                        qrCodeString = qrCode
                     )
                 }
             }
