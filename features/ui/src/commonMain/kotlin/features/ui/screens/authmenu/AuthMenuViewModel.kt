@@ -85,7 +85,7 @@ internal class AuthMenuViewModel(
         viewModelScope.launch(dispatcher) {
             authRepository.listenQrCodeLogin(qrCodeContentId)
                 .collectLatest {
-                    println(it)
+                    sendEvent(AuthMenuEvents.CodeScanned(it))
                 }
         }
     }

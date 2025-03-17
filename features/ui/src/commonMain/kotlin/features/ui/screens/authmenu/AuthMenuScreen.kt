@@ -31,6 +31,9 @@ internal fun AuthMenuScreen(
         viewModel.events.collect { event ->
             when (event) {
                 is AuthMenuEvents.Error -> snackbarHost.showSnackbar(message = event.message)
+                is AuthMenuEvents.CodeScanned -> snackbarHost.showSnackbar(
+                    message = "Code scanned. Token: ${event.code.accessToken}, Refresh Token: ${event.code.refreshToken}"
+                )
             }
         }
     }

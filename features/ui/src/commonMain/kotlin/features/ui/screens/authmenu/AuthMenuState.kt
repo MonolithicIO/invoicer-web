@@ -1,5 +1,7 @@
 package features.ui.screens.authmenu
 
+import features.domain.api.auth.model.AuthTokenModel
+
 internal data class AuthMenuState(
     val email: String = "",
     val password: String = "",
@@ -13,6 +15,7 @@ internal data class AuthMenuState(
 
 internal sealed interface AuthMenuEvents {
     data class Error(val message: String) : AuthMenuEvents
+    data class CodeScanned(val code: AuthTokenModel) : AuthMenuEvents
 }
 
 internal enum class QrCodeState {
