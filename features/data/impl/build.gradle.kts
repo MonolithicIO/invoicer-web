@@ -14,6 +14,7 @@ kotlin {
                 implementation(libs.kotlin.coroutines.core)
                 implementation(libs.ktor.core)
                 implementation(libs.kotlin.datetime)
+                implementation(libs.ktor.websockets)
             }
         }
         commonTest {

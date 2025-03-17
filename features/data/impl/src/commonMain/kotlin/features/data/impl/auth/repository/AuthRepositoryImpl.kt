@@ -6,6 +6,8 @@ import features.data.api.auth.model.LoginRequestData
 import features.domain.api.auth.model.AuthTokenModel
 import features.domain.api.auth.model.QrCodeModel
 import features.domain.api.auth.repository.AuthRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class AuthRepositoryImpl(
     private val dataSource: AuthDataSource
@@ -22,7 +24,7 @@ internal class AuthRepositoryImpl(
         )
         return AuthTokenModel(
             refreshToken = response.refreshToken,
-            accessToken = response.accessToken
+            accessToken = response.token
         )
     }
 
@@ -43,5 +45,16 @@ internal class AuthRepositoryImpl(
             rawContent = response.rawContent,
             expiration = response.expiration
         )
+    }
+
+    override suspend fun listenQrCodeLogin(qrCodeContentId: String): Flow<AuthTokenModel> {
+        return dataSource.listenQrCodeSocket(
+            contentId = qrCodeContentId
+        ).map {
+            AuthTokenModel(
+                refreshToken = it.refreshToken,
+                accessToken = it.token
+            )
+        }
     }
 }

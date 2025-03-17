@@ -18,6 +18,7 @@ kotlin {
                 implementation(libs.kotlin.coroutines.core)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.bundles.ktor)
+                implementation(libs.ktor.websockets)
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
             }

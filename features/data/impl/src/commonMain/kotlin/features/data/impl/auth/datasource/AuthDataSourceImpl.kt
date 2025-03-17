@@ -4,8 +4,12 @@ import features.data.api.auth.datasource.AuthDataSource
 import features.data.api.auth.model.*
 import foundation.network.HttpWrapper
 import io.ktor.client.call.*
+import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
+import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 internal class AuthDataSourceImpl(
@@ -33,6 +37,17 @@ internal class AuthDataSourceImpl(
             httpWrapper.client.post("/v1/auth/login/code") {
                 setBody(QrCodeRequest(size = 256))
             }.body()
+        }
+    }
+
+    override suspend fun listenQrCodeSocket(contentId: String): Flow<AuthTokenResponseData> {
+        return flow {
+            httpWrapper.client.webSocket(
+                urlString = "/v1/login_code/qrcode_socket/${contentId}"
+            ) {
+                emit(receiveDeserialized<AuthTokenResponseData>())
+                close()
+            }
         }
     }
 }
