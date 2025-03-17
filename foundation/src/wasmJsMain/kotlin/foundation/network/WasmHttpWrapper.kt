@@ -51,7 +51,7 @@ internal class WasmHttpWrapper() : HttpWrapper {
 
         defaultRequest {
             contentType(ContentType.Application.Json)
-            url("http://localhost:8080")
+            url("http://localhost:4000")
         }
     }
 }
