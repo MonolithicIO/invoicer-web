@@ -34,7 +34,7 @@ internal class AuthDataSourceImpl(
 
     override suspend fun requestLoginQrCode(): QrCodeResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.post("/v1/auth/login/code") {
+            httpWrapper.client.post("/v1/login_code") {
                 setBody(QrCodeRequest(size = 256))
             }.body()
         }

@@ -12,6 +12,7 @@ import foundation.uievent.UiEventManager
 import foundation.uievent.UiEventOwner
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -80,6 +81,15 @@ internal class AuthMenuViewModel(
         requestNewCode()
     }
 
+    private fun observeQrCodeLogin(qrCodeContentId: String) {
+        viewModelScope.launch(dispatcher) {
+            authRepository.listenQrCodeLogin(qrCodeContentId)
+                .collectLatest {
+                    println(it)
+                }
+        }
+    }
+
     private fun requestNewCode() {
         viewModelScope.launch(dispatcher) {
             updateState {
@@ -100,6 +110,7 @@ internal class AuthMenuViewModel(
                             qrCodeBase64 = response.base64Content,
                         )
                     }
+                    observeQrCodeLogin(qrCodeContentId = response.rawContent)
                 }
             }
         }
