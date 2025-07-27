@@ -61,3 +61,4 @@ testem.log
 Thumbs.db
 
 .angular/cache
+.DS_Store
