@@ -1,12 +1,10 @@
 import { Component } from "@angular/core";
-import { RouterOutlet } from "@angular/router";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "login-screen",
-  imports: [RouterOutlet],
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css",
+  imports: [RouterLink],
 })
-export class LoginComponent {
-  title = "Login";
-}
+export class LoginComponent {}
