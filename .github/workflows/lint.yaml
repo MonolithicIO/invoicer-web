@@ -1,0 +1,103 @@
+name: Angular Linter
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Angular Linter
+        id: lint
+        run: |
+          # Execute linter and capture output
+          set +e  # Don't fail immediately on error
+          npx ng lint > lint-output.txt 2>&1
+          LINT_EXIT_CODE=$?
+          set -e  # Re-enable immediate failure
+
+          if [ $LINT_EXIT_CODE -eq 0 ]; then
+            echo "lint_success=true" >> $GITHUB_OUTPUT
+            echo "✅ Linting passed successfully!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "lint_success=false" >> $GITHUB_OUTPUT
+            echo "❌ Linting failed!" >> $GITHUB_STEP_SUMMARY
+            
+            # Clean ANSI escape sequences and format output
+            sed 's/\x1b\[[0-9;]*m//g' lint-output.txt > lint-clean.txt
+            
+            # Create formatted result for comment
+            {
+              echo "lint_result<<EOF"
+              echo "## ❌ Linting Failed"
+              echo ""
+              echo "The Angular linter found the following issues:"
+              echo ""
+              echo '```'
+              cat lint-clean.txt
+              echo '```'
+              echo ""
+              echo "Please fix the issues above before merging this PR."
+              echo "EOF"
+            } >> $GITHUB_OUTPUT
+          fi
+
+      - name: Find existing comment
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: "<!-- angular-linter-comment -->"
+
+      - name: Create or update comment - Success
+        if: steps.lint.outputs.lint_success == 'true'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            <!-- angular-linter-comment -->
+            ## ✅ Linting Successful
+
+            The Angular linter ran successfully! No errors were found.
+
+            _Executed on: ${{ github.sha }}_
+          edit-mode: replace
+
+      - name: Create or update comment - Failure
+        if: steps.lint.outputs.lint_success == 'false'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            <!-- angular-linter-comment -->
+            ${{ steps.lint.outputs.lint_result }}
+
+            _Executed on: ${{ github.sha }}_
+          edit-mode: replace
+
+      - name: Fail job if linting failed
+        if: steps.lint.outputs.lint_success == 'false'
+        run: |
+          echo "Linting failed. Please check the errors above."
+          exit 1
