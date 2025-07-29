@@ -30,7 +30,7 @@ jobs:
         run: |
           # Execute linter and capture output
           set +e  # Don't fail immediately on error
-          npm run lint > lint-output.txt 2>&1
+          npx ng lint > lint-output.txt 2>&1
           LINT_EXIT_CODE=$?
           set -e  # Re-enable immediate failure
 
