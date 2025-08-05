@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
-import { LoginComponent } from "../presentation/screens/auth/login/login.component";
-import { NotFoundComponent } from "../presentation/screens/notFound/notFound.component";
-import { SignUpComponent } from "../presentation/screens/auth/signup/signup.component";
+import { LoginComponent } from "../presentation/login/login.component";
+import { NotFoundComponent } from "../presentation/notFound/notFound.component";
+import { SignUpComponent } from "../presentation/signup/signup.component";
 
 export const routes: Routes = [
   {

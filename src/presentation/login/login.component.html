@@ -1,0 +1,23 @@
+<main class="login-container">
+  <span>Invoicer web</span>
+
+  <input
+    placeholder="john@example.com"
+    type="email"
+    [value]="email()"
+    (input)="onChangeEmail($event)"
+  />
+  <input
+    placeholder="*****"
+    type="password"
+    [value]="password()"
+    (input)="onChangePassword($event)"
+  />
+
+  <button (click)="onLogin()" [disabled]="!isButtonEnabled()">Login</button>
+  <button (click)="onLoginWithGoogle()">
+    <span>Login with Google</span>
+  </button>
+
+  <a routerLink="/signup">To sign up</a>
+</main>
