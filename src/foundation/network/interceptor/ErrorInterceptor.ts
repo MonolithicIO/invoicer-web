@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 import { ApiError } from "../ApiError";
 
 export function ErrorInterceptor(
-  req: HttpRequest<any>,
+  req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> {
   return next(req).pipe(
