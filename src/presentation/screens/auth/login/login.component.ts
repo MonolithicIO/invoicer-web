@@ -1,5 +1,7 @@
-import { Component, signal, computed } from "@angular/core";
+import { Component, signal, computed, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
+import { LoginRepository } from "../../../../domain/login/repository/LoginRepository";
+import { ApiError } from "../../../../foundation/network/ApiError";
 
 @Component({
   selector: "app-login-screen",
@@ -8,6 +10,8 @@ import { RouterLink } from "@angular/router";
   imports: [RouterLink],
 })
 export class LoginComponent {
+  private loginRepository = inject(LoginRepository);
+
   email = signal("");
   password = signal("");
   isButtonEnabled = computed(() => this.email() && this.password());
@@ -22,11 +26,26 @@ export class LoginComponent {
     this.password.set(input.value);
   }
 
-  onLogin() {
-    alert(`Email: ${this.email()}, Password: ${this.password()}`);
-  }
-
   onLoginWithGoogle() {
     alert("Login with Google is not implemented yet.");
+  }
+
+  onLogin() {
+    this.loginRepository
+      .login({
+        email: this.email(),
+        password: this.password(),
+      })
+      .subscribe({
+        next: (response) => {
+          alert(
+            `Login successful! Token: ${response.token}, Refresh Token: ${response.refreshToken}`
+          );
+        },
+        error: (error: ApiError) => {
+          console.log(error);
+          alert(`Login failed: ${error.message}`);
+        },
+      });
   }
 }
