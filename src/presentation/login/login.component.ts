@@ -1,7 +1,7 @@
 import { Component, signal, computed, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { LoginRepository } from "../../domain/login/repository/LoginRepository";
 import { ApiError } from "../../foundation/network/ApiError";
+import { IdentityLoginService } from "../../domain/login/service/IdentityLoginService";
 
 @Component({
   selector: "app-login-screen",
@@ -10,7 +10,7 @@ import { ApiError } from "../../foundation/network/ApiError";
   imports: [RouterLink],
 })
 export class LoginComponent {
-  private loginRepository = inject(LoginRepository);
+  private identityLoginService = inject(IdentityLoginService);
 
   email = signal("");
   password = signal("");
@@ -31,21 +31,17 @@ export class LoginComponent {
   }
 
   onLogin() {
-    this.loginRepository
+    this.identityLoginService
       .login({
         email: this.email(),
         password: this.password(),
       })
-      .subscribe({
-        next: (response) => {
-          alert(
-            `Login successful! Token: ${response.token}, Refresh Token: ${response.refreshToken}`
-          );
-        },
-        error: (error: ApiError) => {
-          console.log(error);
-          alert(`Login failed: ${error.message}`);
-        },
+      .then(() => {
+        console.log(`Login successful!`);
+      })
+      .catch((error: ApiError) => {
+        console.log(error);
+        console.log(`Login failed: ${error.message}`);
       });
   }
 }
