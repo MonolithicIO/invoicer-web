@@ -37,11 +37,10 @@ export class LoginComponent {
         password: this.password(),
       })
       .then(() => {
-        console.log(`Login successful!`);
+        alert(`Login successful!`);
       })
       .catch((error: ApiError) => {
-        console.log(error);
-        console.log(`Login failed: ${error.message}`);
+        alert(error);
       });
   }
 }
