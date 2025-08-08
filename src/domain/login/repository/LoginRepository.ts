@@ -1,20 +1,26 @@
 import { inject, Injectable } from "@angular/core";
-import { LoginDataSource } from "../../../data/login/datasource/LoginDatasource";
+import { LoginRemoteDatasource } from "../../../data/login/datasource/LoginRemoteDatasource";
 import { LoginModel } from "../model/LoginModel";
 import { LoginRequest } from "../../../data/login/model/LoginRequest";
+import { AuthTokenModel } from "../model/AuthTokenModel";
 
 @Injectable({
   providedIn: "root",
 })
 export class LoginRepository {
-  private loginDatasource = inject(LoginDataSource);
+  private remoteDatasource = inject(LoginRemoteDatasource);
 
-  login(model: LoginModel) {
+  async login(model: LoginModel): Promise<AuthTokenModel> {
     const request: LoginRequest = {
       email: model.email,
       password: model.password,
     };
 
-    return this.loginDatasource.login(request);
+    const result = await this.remoteDatasource.login(request);
+
+    return Promise.resolve({
+      accessToken: result.token,
+      refreshToken: result.refreshToken,
+    });
   }
 }

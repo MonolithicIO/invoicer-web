@@ -36,16 +36,12 @@ export class LoginComponent {
         email: this.email(),
         password: this.password(),
       })
-      .subscribe({
-        next: (response) => {
-          alert(
-            `Login successful! Token: ${response.token}, Refresh Token: ${response.refreshToken}`
-          );
-        },
-        error: (error: ApiError) => {
-          console.log(error);
-          alert(`Login failed: ${error.message}`);
-        },
+      .then(() => {
+        alert(`Login successful!`);
+      })
+      .catch((error: ApiError) => {
+        console.log(error);
+        alert(`Login failed: ${error.message}`);
       });
   }
 }
