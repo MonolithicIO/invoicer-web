@@ -2,6 +2,9 @@ import { Routes } from "@angular/router";
 import { LoginComponent } from "../../screens/login/login.component";
 import { NotFoundComponent } from "../../screens/notFound/notFound.component";
 import { SignUpComponent } from "../../screens/signup/signup.component";
+import { HomeComponent } from "../../screens/home/home.component";
+import { AuthGuard } from "../guards/AuthGuard";
+import { NoAuthGuard } from "../guards/NoAuthGuard";
 
 export const routes: Routes = [
   {
@@ -12,10 +15,17 @@ export const routes: Routes = [
   {
     path: "signup",
     component: SignUpComponent,
+    canActivate: [NoAuthGuard],
   },
   {
     path: "login",
     component: LoginComponent,
+    canActivate: [NoAuthGuard],
+  },
+  {
+    path: "home",
+    component: HomeComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "**",
