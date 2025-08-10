@@ -7,9 +7,9 @@ import {
   withFetch,
   withInterceptors,
 } from "@angular/common/http";
-import { BaseUrlInterceptor } from "./network/interceptor/BaseUrlInterceptor";
-import { ErrorInterceptor } from "./network/interceptor/ErrorInterceptor";
-import { AuthTokenInterceptor } from "./network/interceptor/AuthTokenInterceptor";
+import { BaseUrlInterceptor } from "../core/network/interceptor/BaseUrlInterceptor";
+import { ErrorInterceptor } from "../core/network/interceptor/ErrorInterceptor";
+import { AuthTokenInterceptor } from "../core/network/interceptor/AuthTokenInterceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [

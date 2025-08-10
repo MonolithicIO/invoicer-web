@@ -6,7 +6,7 @@ import {
 } from "@angular/common/http";
 import { catchError, throwError } from "rxjs";
 import { Observable } from "rxjs";
-import { ApiError } from "../ApiError";
+import { ApiError } from "../model/ApiError";
 
 export function ErrorInterceptor(
   req: HttpRequest<unknown>,
