@@ -1,6 +1,6 @@
 import { Component, signal, computed, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { ApiError } from "../../../foundation/network/ApiError";
+import { ApiError } from "../../../network/ApiError";
 import { IdentityLoginService } from "../../../domain/login/service/IdentityLoginService";
 
 @Component({
