@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandlerFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { Observable } from "rxjs";
-import { AuthTokenRepository } from "../../../app/domain/login/repository/AuthTokenRepository";
+import { AuthTokenRepository } from "../../domain/login/repository/AuthTokenRepository";
 
 export function AuthTokenInterceptor(
   req: HttpRequest<unknown>,
