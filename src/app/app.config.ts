@@ -1,7 +1,7 @@
 import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
 import { provideRouter } from "@angular/router";
 
-import { routes } from "../presentation/navigation/routes/app.routes";
+import { routes } from "./presentation/navigation/routes/app.routes";
 import {
   provideHttpClient,
   withFetch,

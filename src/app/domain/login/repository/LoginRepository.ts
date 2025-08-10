@@ -1,8 +1,8 @@
 import { inject, Injectable } from "@angular/core";
-import { LoginRemoteDatasource } from "../../../data/login/datasource/LoginRemoteDatasource";
 import { LoginModel } from "../model/LoginModel";
-import { LoginRequest } from "../../../data/login/model/LoginRequest";
 import { AuthTokenModel } from "../model/AuthTokenModel";
+import { LoginRequest } from "../../../data/login/model/LoginRequest";
+import { LoginRemoteDatasource } from "../../../data/login/datasource/LoginRemoteDatasource";
 
 @Injectable({
   providedIn: "root",
