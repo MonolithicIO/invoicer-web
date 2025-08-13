@@ -20,9 +20,9 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([
         BaseUrlInterceptor,
-        UnAuthorizedInterceptor,
-        ErrorInterceptor,
         AuthTokenInterceptor,
+        ErrorInterceptor,
+        UnAuthorizedInterceptor,
       ])
     ),
   ],

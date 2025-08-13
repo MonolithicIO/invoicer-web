@@ -14,7 +14,6 @@ export function ErrorInterceptor(
 ): Observable<HttpEvent<unknown>> {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      // Converte o erro HTTP em nosso modelo de erro personalizado
       const apiError: ApiError = {
         message: error.error?.message || error.message || "Unknown error",
         statusCode: error.status,
