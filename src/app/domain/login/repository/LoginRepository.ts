@@ -3,6 +3,8 @@ import { LoginModel } from "../model/LoginModel";
 import { AuthTokenModel } from "../model/AuthTokenModel";
 import { LoginRequest } from "../../../data/login/model/LoginRequest";
 import { LoginRemoteDatasource } from "../../../data/login/datasource/LoginRemoteDatasource";
+import { RefreshLogin } from "../model/RefreshLogin";
+import { map, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -10,17 +12,30 @@ import { LoginRemoteDatasource } from "../../../data/login/datasource/LoginRemot
 export class LoginRepository {
   private remoteDatasource = inject(LoginRemoteDatasource);
 
-  async login(model: LoginModel): Promise<AuthTokenModel> {
+  login(model: LoginModel): Observable<AuthTokenModel> {
     const request: LoginRequest = {
       email: model.email,
       password: model.password,
     };
 
-    const result = await this.remoteDatasource.login(request);
+    return this.remoteDatasource.login(request).pipe(
+      map((response) => ({
+        accessToken: response.token,
+        refreshToken: response.refreshToken,
+      }))
+    );
+  }
 
-    return Promise.resolve({
-      accessToken: result.token,
-      refreshToken: result.refreshToken,
-    });
+  refreshLogin(model: RefreshLogin): Observable<AuthTokenModel> {
+    return this.remoteDatasource
+      .refreshLogin({
+        refreshToken: model.refreshToken,
+      })
+      .pipe(
+        map((response) => ({
+          accessToken: response.token,
+          refreshToken: response.refreshToken,
+        }))
+      );
   }
 }

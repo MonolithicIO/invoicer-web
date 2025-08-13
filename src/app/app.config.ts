@@ -10,6 +10,7 @@ import {
 import { BaseUrlInterceptor } from "../core/network/interceptor/BaseUrlInterceptor";
 import { ErrorInterceptor } from "../core/network/interceptor/ErrorInterceptor";
 import { AuthTokenInterceptor } from "../core/network/interceptor/AuthTokenInterceptor";
+import { UnAuthorizedInterceptor } from "../core/network/interceptor/UnAuthorizedInterceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,8 +20,9 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([
         BaseUrlInterceptor,
-        ErrorInterceptor,
         AuthTokenInterceptor,
+        ErrorInterceptor,
+        UnAuthorizedInterceptor,
       ])
     ),
   ],

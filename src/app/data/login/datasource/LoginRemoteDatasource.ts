@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { firstValueFrom } from "rxjs";
+import { Observable } from "rxjs";
 import { LoginRequest } from "../model/LoginRequest";
 import { LoginResponse } from "../model/LoginResponse";
+import { RefreshLoginRequest } from "../model/RefreshLoginRequest";
 
 @Injectable({
   providedIn: "root",
@@ -10,14 +11,11 @@ import { LoginResponse } from "../model/LoginResponse";
 export class LoginRemoteDatasource {
   private httpClient: HttpClient = inject(HttpClient);
 
-  login(request: LoginRequest): Promise<LoginResponse> {
-    const requestBody = {
-      email: request.email,
-      password: request.password,
-    };
+  login(request: LoginRequest): Observable<LoginResponse> {
+    return this.httpClient.post<LoginResponse>("/v1/auth/login", request);
+  }
 
-    return firstValueFrom(
-      this.httpClient.post<LoginResponse>("/v1/auth/login", requestBody)
-    );
+  refreshLogin(request: RefreshLoginRequest): Observable<LoginResponse> {
+    return this.httpClient.post<LoginResponse>("/v1/auth/refresh", request);
   }
 }
