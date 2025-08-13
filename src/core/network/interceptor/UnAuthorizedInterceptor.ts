@@ -18,7 +18,6 @@ import {
 import { RefreshTokenService } from "../../../app/domain/login/service/RefreshTokenService";
 import { Router } from "@angular/router";
 import { AuthTokenRepository } from "../../../app/domain/login/repository/AuthTokenRepository";
-import { AuthTokenModel } from "../../../app/domain/login/model/AuthTokenModel";
 import { LoginResponse } from "../../../app/data/login/model/LoginResponse";
 
 export function UnAuthorizedInterceptor(
