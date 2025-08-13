@@ -1,6 +1,8 @@
 import { Injectable, inject } from "@angular/core";
 import { LoginRepository } from "../repository/LoginRepository";
 import { AuthTokenRepository } from "../repository/AuthTokenRepository";
+import { LoginResponse } from "../../../data/login/model/LoginResponse";
+import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class RefreshTokenService {
@@ -8,12 +10,24 @@ export class RefreshTokenService {
   private authTokenRepository: AuthTokenRepository =
     inject(AuthTokenRepository);
 
-  async refreshToken(refreshToken: string): Promise<void> {
-    const tokens = await this.repository.refreshLogin({ refreshToken });
-
-    this.authTokenRepository.storeTokens({
-      refreshToken: tokens.refreshToken,
-      accessToken: tokens.accessToken,
+  refreshToken(refreshToken: string): Observable<LoginResponse> {
+    return new Observable((observer) => {
+      this.repository.refreshLogin({ refreshToken }).subscribe({
+        next: (tokens) => {
+          this.authTokenRepository.storeTokens({
+            refreshToken: tokens.refreshToken,
+            accessToken: tokens.accessToken,
+          });
+          observer.next({
+            refreshToken: tokens.refreshToken,
+            token: tokens.accessToken,
+          });
+          observer.complete();
+        },
+        error: (error) => {
+          observer.error(error);
+        },
+      });
     });
   }
 }

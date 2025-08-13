@@ -4,6 +4,7 @@ import { AuthTokenModel } from "../model/AuthTokenModel";
 import { LoginRequest } from "../../../data/login/model/LoginRequest";
 import { LoginRemoteDatasource } from "../../../data/login/datasource/LoginRemoteDatasource";
 import { RefreshLogin } from "../model/RefreshLogin";
+import { map, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -11,28 +12,30 @@ import { RefreshLogin } from "../model/RefreshLogin";
 export class LoginRepository {
   private remoteDatasource = inject(LoginRemoteDatasource);
 
-  async login(model: LoginModel): Promise<AuthTokenModel> {
+  login(model: LoginModel): Observable<AuthTokenModel> {
     const request: LoginRequest = {
       email: model.email,
       password: model.password,
     };
 
-    const result = await this.remoteDatasource.login(request);
-
-    return Promise.resolve({
-      accessToken: result.token,
-      refreshToken: result.refreshToken,
-    });
+    return this.remoteDatasource.login(request).pipe(
+      map((response) => ({
+        accessToken: response.token,
+        refreshToken: response.refreshToken,
+      }))
+    );
   }
 
-  async refreshLogin(model: RefreshLogin): Promise<AuthTokenModel> {
-    const result = await this.remoteDatasource.refreshLogin({
-      refreshToken: model.refreshToken,
-    });
-
-    return Promise.resolve({
-      accessToken: result.token,
-      refreshToken: result.refreshToken,
-    });
+  refreshLogin(model: RefreshLogin): Observable<AuthTokenModel> {
+    return this.remoteDatasource
+      .refreshLogin({
+        refreshToken: model.refreshToken,
+      })
+      .pipe(
+        map((response) => ({
+          accessToken: response.token,
+          refreshToken: response.refreshToken,
+        }))
+      );
   }
 }

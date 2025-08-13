@@ -36,11 +36,13 @@ export class LoginComponent {
         email: this.email(),
         password: this.password(),
       })
-      .then(() => {
-        alert(`Login successful!`);
-      })
-      .catch((error: ApiError) => {
-        alert(error);
+      .subscribe({
+        next: () => {
+          alert(`Login successful!`);
+        },
+        error: (error: ApiError) => {
+          alert(error);
+        },
       });
   }
 }
