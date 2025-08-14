@@ -1,0 +1,11 @@
+<main class="select-company-container">
+  <h1>Select a Company</h1>
+  <div>
+    <h2>My List of Items:</h2>
+    @for (item of companies(); track $index) {
+    <p>{{ item.name }}</p>
+    } @empty {
+    <p>No items to display.</p>
+    }
+  </div>
+</main>

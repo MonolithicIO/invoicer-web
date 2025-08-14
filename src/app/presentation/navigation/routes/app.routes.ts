@@ -5,6 +5,7 @@ import { SignUpComponent } from "../../screens/signup/signup.component";
 import { HomeComponent } from "../../screens/home/home.component";
 import { AuthGuard } from "../guards/AuthGuard";
 import { NoAuthGuard } from "../guards/NoAuthGuard";
+import { SelectCompanyComponent } from "../../screens/selectCompany/selectCompany.component";
 
 export const routes: Routes = [
   {
@@ -25,6 +26,11 @@ export const routes: Routes = [
   {
     path: "home",
     component: HomeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "select-company",
+    component: SelectCompanyComponent,
     canActivate: [AuthGuard],
   },
   {

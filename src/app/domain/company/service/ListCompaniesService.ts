@@ -1,0 +1,11 @@
+import { inject, Injectable } from "@angular/core";
+import { CompanyRepository } from "../repository/CompanyRepository";
+
+@Injectable({ providedIn: "root" })
+export class ListCompaniesService {
+  private companyRepository: CompanyRepository = inject(CompanyRepository);
+
+  listCompanies(request: { page: number; limit: number }) {
+    return this.companyRepository.listCompanies(request);
+  }
+}
