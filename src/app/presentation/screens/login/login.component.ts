@@ -1,5 +1,5 @@
 import { Component, signal, computed, inject } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ApiError } from "../../../../core/network/model/ApiError";
 import { IdentityLoginService } from "../../../domain/login/service/IdentityLoginService";
 
@@ -11,6 +11,7 @@ import { IdentityLoginService } from "../../../domain/login/service/IdentityLogi
 })
 export class LoginComponent {
   private identityLoginService = inject(IdentityLoginService);
+  private router = inject(Router);
 
   email = signal("");
   password = signal("");
@@ -38,10 +39,10 @@ export class LoginComponent {
       })
       .subscribe({
         next: () => {
-          alert(`Login successful!`);
+          this.router.navigate(["/home"]);
         },
         error: (error: ApiError) => {
-          alert(error);
+          alert(error.message);
         },
       });
   }
