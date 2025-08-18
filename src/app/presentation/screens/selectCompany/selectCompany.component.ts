@@ -2,6 +2,8 @@ import { Component, inject, OnInit, signal } from "@angular/core";
 import { ListCompaniesService } from "../../../domain/company/service/ListCompaniesService";
 import { CompanyListItem } from "../../../data/company/model/ListCompaniesRequest";
 import { ApiError } from "../../../../core/network/model/ApiError";
+import { SelectCompanyService } from "../../../domain/company/service/SelectCompanyService";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-select-company",
@@ -10,6 +12,10 @@ import { ApiError } from "../../../../core/network/model/ApiError";
 })
 export class SelectCompanyComponent implements OnInit {
   companies = signal<CompanyListItem[]>([]);
+
+  private listCompanyService = inject(ListCompaniesService);
+  private selectCompanyService = inject(SelectCompanyService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.listCompanyService
@@ -26,5 +32,12 @@ export class SelectCompanyComponent implements OnInit {
         },
       });
   }
-  private listCompanyService = inject(ListCompaniesService);
+
+  onSelectItem(item: CompanyListItem): void {
+    this.selectCompanyService.selectCompany({
+      name: item.name,
+      id: item.id,
+    });
+    this.router.navigate(["/home"]);
+  }
 }
