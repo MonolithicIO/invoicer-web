@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { EMPTY, Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { AuthTokenRepository } from "../repository/AuthTokenRepository";
 import { CompanyRepository } from "../../company/repository/CompanyRepository";
 
@@ -11,6 +11,6 @@ export class LogoutService {
   logout(): Observable<void> {
     this.authTokenRepository.clearTokens();
     this.companyRepository.clearSelectedCompany();
-    return EMPTY;
+    return of(void 0);
   }
 }
