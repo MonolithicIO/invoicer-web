@@ -3,7 +3,10 @@
   <div>
     <h2>My List of Items:</h2>
     @for (item of companies(); track $index) {
-    <p>{{ item.name }}</p>
+    <div class="select-company-item">
+      <p>{{ item.name }}</p>
+      <button (click)="onSelectItem(item)">Select</button>
+    </div>
     } @empty {
     <p>No items to display.</p>
     }
