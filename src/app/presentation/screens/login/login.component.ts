@@ -1,13 +1,17 @@
 import { Component, signal, computed, inject } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { ApiError } from "../../../../core/network/model/ApiError";
 import { IdentityLoginService } from "../../../domain/login/service/IdentityLoginService";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: "app-login-screen",
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css",
-  imports: [RouterLink],
+  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule],
 })
 export class LoginComponent {
   private identityLoginService = inject(IdentityLoginService);
@@ -45,5 +49,9 @@ export class LoginComponent {
           alert(error.message);
         },
       });
+  }
+
+  onGoToSignUP() {
+    this.router.navigate(["/signup"]);
   }
 }
