@@ -1,23 +1,48 @@
 <main class="login-container">
-  <span>Invoicer web</span>
+  <form class="login-form">
+    <h1>Invoicer web</h1>
 
-  <input
-    placeholder="john@example.com"
-    type="email"
-    [value]="email()"
-    (input)="onChangeEmail($event)"
-  />
-  <input
-    placeholder="*****"
-    type="password"
-    [value]="password()"
-    (input)="onChangePassword($event)"
-  />
+    <mat-form-field appearance="outline" class="login-field">
+      <mat-label>E-mail</mat-label>
+      <input
+        matInput
+        placeholder="john@example.com"
+        type="email"
+        [value]="email()"
+        (input)="onChangeEmail($event)"
+      />
+    </mat-form-field>
 
-  <button (click)="onLogin()" [disabled]="!isButtonEnabled()">Login</button>
-  <button (click)="onLoginWithGoogle()">
-    <span>Login with Google</span>
-  </button>
+    <mat-form-field appearance="outline" class="login-field">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="*****"
+        type="password"
+        [value]="password()"
+        (input)="onChangePassword($event)"
+      />
+    </mat-form-field>
 
-  <a routerLink="/signup">To sign up</a>
+    <button
+      class="login-field"
+      mat-raised-button
+      (click)="onLogin()"
+      [disabled]="!isButtonEnabled()"
+    >
+      Login
+    </button>
+
+    <button
+      class="login-field"
+      mat-stroked-button
+      (click)="onLoginWithGoogle()"
+    >
+      Login with Google
+    </button>
+
+    <button class="login-field" mat-button (click)="onGoToSignUP()">
+      Create account
+    </button>
+  </form>
 </main>
