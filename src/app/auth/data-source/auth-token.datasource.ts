@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { AuthTokenResponse } from "../../data/auth/model/AuthTokenResponse";
 
 @Injectable({
   providedIn: "root",
@@ -32,4 +31,9 @@ export class AuthTokenDatasource {
   isLoggedIn(): boolean {
     return this.getTokens() !== null;
   }
+}
+
+export interface AuthTokenResponse {
+  accessToken: string;
+  refreshToken: string;
 }

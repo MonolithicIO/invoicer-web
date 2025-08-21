@@ -17,8 +17,10 @@ import {
 } from "rxjs";
 import { Router } from "@angular/router";
 import { AuthTokenRepository } from "../../../app/auth/repository/auth-token.repository";
-import { LoginResponse } from "../../../app/data/auth/model/LoginResponse";
-import { RefreshTokenService } from "../../../app/auth/service/refresh-token.service";
+import {
+  LoginResult,
+  RefreshTokenService,
+} from "../../../app/auth/service/refresh-token.service";
 
 export function UnAuthorizedInterceptor(
   req: HttpRequest<unknown>,
@@ -63,7 +65,7 @@ function handle401Error(
     const refreshToken = tokenRepository.getTokens()?.refreshToken ?? "";
 
     return refreshService.refreshToken(refreshToken).pipe(
-      switchMap((response: LoginResponse) => {
+      switchMap((response: LoginResult) => {
         refreshTokenSubject.next(response.token);
         const newRequest = addTokenToRequest(request, response.token);
 

@@ -1,5 +1,4 @@
 import { Injectable, inject } from "@angular/core";
-import { AuthTokenResponse } from "../../data/auth/model/AuthTokenResponse";
 import { AuthTokenDatasource } from "../data-source/auth-token.datasource";
 
 @Injectable({
@@ -8,12 +7,15 @@ import { AuthTokenDatasource } from "../data-source/auth-token.datasource";
 export class AuthTokenRepository {
   private localDatasource = inject(AuthTokenDatasource);
 
-  getTokens(): AuthTokenResponse | null {
+  getTokens(): AuthTokens | null {
     return this.localDatasource.getTokens();
   }
 
-  storeTokens(tokens: AuthTokenResponse): void {
-    this.localDatasource.storeTokens(tokens);
+  storeTokens(tokens: AuthTokens): void {
+    this.localDatasource.storeTokens({
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+    });
   }
 
   clearTokens(): void {
@@ -23,4 +25,9 @@ export class AuthTokenRepository {
   isLoggedIn(): boolean {
     return this.localDatasource.isLoggedIn();
   }
+}
+
+export interface AuthTokens {
+  accessToken: string;
+  refreshToken: string;
 }

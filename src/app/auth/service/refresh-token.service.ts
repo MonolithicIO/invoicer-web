@@ -3,7 +3,6 @@ import { Injectable, inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { LoginRepository } from "../repository/login.repository";
 import { AuthTokenRepository } from "../repository/auth-token.repository";
-import { LoginResponse } from "../../data/auth/model/LoginResponse";
 
 @Injectable({ providedIn: "root" })
 export class RefreshTokenService {
@@ -11,7 +10,7 @@ export class RefreshTokenService {
   private authTokenRepository: AuthTokenRepository =
     inject(AuthTokenRepository);
 
-  refreshToken(refreshToken: string): Observable<LoginResponse> {
+  refreshToken(refreshToken: string): Observable<LoginResult> {
     return new Observable((observer) => {
       this.repository.refreshLogin({ refreshToken }).subscribe({
         next: (tokens) => {
@@ -31,4 +30,9 @@ export class RefreshTokenService {
       });
     });
   }
+}
+
+export interface LoginResult {
+  refreshToken: string;
+  token: string;
 }
