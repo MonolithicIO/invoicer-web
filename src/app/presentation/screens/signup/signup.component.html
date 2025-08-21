@@ -1,6 +1,38 @@
-<main>
-  <div>
-    <span>Sign up</span>
-    <a routerLink="">To login</a>
-  </div>
+<main class="sign-up-container">
+  <section class="sign-up-form-wrapper">
+    <h1>Create account</h1>
+
+    <form class="sign-up-form">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput placeholder="john@gmail.com" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm E-mail</mat-label>
+        <input matInput placeholder="john@gmail.com" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          placeholder="********"
+          [type]="showPassword() ? 'text' : 'password'"
+        />
+        <button mat-button matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon>{{
+            showPassword() ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-flat-button (click)="onSubmit()">Sign up</button>
+
+      <button mat-button>
+        Already have an account? Sign in
+        <mat-icon>login</mat-icon>
+      </button>
+    </form>
+  </section>
 </main>
