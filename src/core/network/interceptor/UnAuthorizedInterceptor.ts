@@ -16,11 +16,11 @@ import {
   throwError,
 } from "rxjs";
 import { Router } from "@angular/router";
-import { AuthTokenRepository } from "../../../app/auth/repository/auth-token.repository";
+import { AuthTokenRepository } from "../../../app/feature/auth/repository/auth-token.repository";
 import {
   LoginResult,
   RefreshTokenService,
-} from "../../../app/auth/service/refresh-token.service";
+} from "../../../app/feature/auth/service/refresh-token.service";
 
 export function UnAuthorizedInterceptor(
   req: HttpRequest<unknown>,

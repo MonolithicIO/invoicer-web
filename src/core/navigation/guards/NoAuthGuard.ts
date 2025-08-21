@@ -1,6 +1,7 @@
 import { CanActivateFn, Router } from "@angular/router";
-import { AuthTokenRepository } from "../../../auth/repository/auth-token.repository";
+
 import { inject } from "@angular/core";
+import { AuthTokenRepository } from "../../../app/feature/auth/repository/auth-token.repository";
 
 export const NoAuthGuard: CanActivateFn = () => {
   const authRepository = inject(AuthTokenRepository);

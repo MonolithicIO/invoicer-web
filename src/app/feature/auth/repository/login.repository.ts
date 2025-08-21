@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { RefreshLogin } from "../../domain/auth/model/RefreshLogin";
+
 import { map, Observable } from "rxjs";
 import { LoginRemoteDatasource } from "../data-source/login.datasource";
 
@@ -26,7 +26,7 @@ export class LoginRepository {
       );
   }
 
-  refreshLogin(model: RefreshLogin): Observable<AuthTokenModel> {
+  refreshLogin(model: { refreshToken: string }): Observable<AuthTokenModel> {
     return this.remoteDatasource
       .refreshLogin({
         refreshToken: model.refreshToken,
