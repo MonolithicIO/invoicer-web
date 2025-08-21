@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
-import { AuthTokenDatasource } from "../../../data/login/datasource/AuthTokenDataSource";
-import { AuthTokenResponse } from "../../../data/login/model/AuthTokenResponse";
+import { AuthTokenResponse } from "../../data/auth/model/AuthTokenResponse";
+import { AuthTokenDatasource } from "../data-source/auth-token.datasource";
 
 @Injectable({
   providedIn: "root",

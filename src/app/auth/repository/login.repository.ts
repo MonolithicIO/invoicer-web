@@ -1,10 +1,10 @@
 import { inject, Injectable } from "@angular/core";
-import { LoginModel } from "../model/LoginModel";
-import { AuthTokenModel } from "../model/AuthTokenModel";
-import { LoginRequest } from "../../../data/login/model/LoginRequest";
-import { LoginRemoteDatasource } from "../../../data/login/datasource/LoginRemoteDatasource";
-import { RefreshLogin } from "../model/RefreshLogin";
+import { LoginModel } from "../../domain/auth/model/LoginModel";
+import { LoginRequest } from "../../data/auth/model/LoginRequest";
+import { RefreshLogin } from "../../domain/auth/model/RefreshLogin";
 import { map, Observable } from "rxjs";
+import { AuthTokenModel } from "../../domain/auth/model/AuthTokenModel";
+import { LoginRemoteDatasource } from "../data-source/login.datasource";
 
 @Injectable({
   providedIn: "root",

@@ -15,10 +15,10 @@ import {
   take,
   throwError,
 } from "rxjs";
-import { RefreshTokenService } from "../../../app/domain/login/service/refresh-token.service";
 import { Router } from "@angular/router";
-import { AuthTokenRepository } from "../../../app/domain/login/repository/auth-token.repository";
-import { LoginResponse } from "../../../app/data/login/model/LoginResponse";
+import { AuthTokenRepository } from "../../../app/auth/repository/auth-token.repository";
+import { LoginResponse } from "../../../app/data/auth/model/LoginResponse";
+import { RefreshTokenService } from "../../../app/auth/service/refresh-token.service";
 
 export function UnAuthorizedInterceptor(
   req: HttpRequest<unknown>,

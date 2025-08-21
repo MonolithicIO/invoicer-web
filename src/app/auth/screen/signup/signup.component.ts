@@ -5,7 +5,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { Router } from "@angular/router";
-import { PasswordStrengthChecker } from "../../../domain/login/service/password-strength-checker.service";
+import { PasswordStrengthChecker } from "../../service/password-strength-checker.service";
 import { PasswordStrengthComponent } from "./views/password-strength/password-strength.component";
 
 @Component({

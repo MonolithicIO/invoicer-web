@@ -1,8 +1,9 @@
 import { Injectable, inject } from "@angular/core";
+
+import { Observable } from "rxjs";
 import { LoginRepository } from "../repository/login.repository";
 import { AuthTokenRepository } from "../repository/auth-token.repository";
-import { LoginResponse } from "../../../data/login/model/LoginResponse";
-import { Observable } from "rxjs";
+import { LoginResponse } from "../../data/auth/model/LoginResponse";
 
 @Injectable({ providedIn: "root" })
 export class RefreshTokenService {
