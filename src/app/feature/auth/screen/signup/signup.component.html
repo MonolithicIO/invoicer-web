@@ -1,0 +1,51 @@
+<main class="sign-up-container">
+  <section class="sign-up-form-wrapper">
+    <h1>Create account</h1>
+
+    <form class="sign-up-form">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input
+          matInput
+          placeholder="john@gmail.com"
+          type="email"
+          (input)="onChangeEmail($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm E-mail</mat-label>
+        <input
+          matInput
+          placeholder="john@gmail.com"
+          type="email"
+          (input)="onChangeConfirmEmail($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          (input)="onChangePassword($event)"
+          matInput
+          placeholder="********"
+          [type]="showPassword() ? 'text' : 'password'"
+        />
+        <button mat-button matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon>{{
+            showPassword() ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <app-password-strength [passwordStrength]="passwordStrength()" />
+
+      <button mat-flat-button (click)="onSubmit()">Sign up</button>
+
+      <button mat-button (click)="goToSignIn()">
+        Already have an account? Sign in
+        <mat-icon>login</mat-icon>
+      </button>
+    </form>
+  </section>
+</main>

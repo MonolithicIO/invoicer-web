@@ -15,10 +15,12 @@ import {
   take,
   throwError,
 } from "rxjs";
-import { RefreshTokenService } from "../../../app/domain/login/service/RefreshTokenService";
 import { Router } from "@angular/router";
-import { AuthTokenRepository } from "../../../app/domain/login/repository/AuthTokenRepository";
-import { LoginResponse } from "../../../app/data/login/model/LoginResponse";
+import { AuthTokenRepository } from "../../../app/feature/auth/repository/auth-token.repository";
+import {
+  LoginResult,
+  RefreshTokenService,
+} from "../../../app/feature/auth/service/refresh-token.service";
 
 export function UnAuthorizedInterceptor(
   req: HttpRequest<unknown>,
@@ -63,7 +65,7 @@ function handle401Error(
     const refreshToken = tokenRepository.getTokens()?.refreshToken ?? "";
 
     return refreshService.refreshToken(refreshToken).pipe(
-      switchMap((response: LoginResponse) => {
+      switchMap((response: LoginResult) => {
         refreshTokenSubject.next(response.token);
         const newRequest = addTokenToRequest(request, response.token);
 
