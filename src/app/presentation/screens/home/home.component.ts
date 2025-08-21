@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { LogoutService } from "../../../domain/login/service/LogoutService";
+import { LogoutService } from "../../../domain/login/service/logout.service";
 import { Router } from "@angular/router";
 
 @Component({

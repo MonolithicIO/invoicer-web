@@ -1,7 +1,7 @@
 import { Component, signal, computed, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { ApiError } from "../../../../core/network/model/ApiError";
-import { IdentityLoginService } from "../../../domain/login/service/IdentityLoginService";
+import { IdentityLoginService } from "../../../domain/login/service/identity-login.service";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule } from "@angular/forms";

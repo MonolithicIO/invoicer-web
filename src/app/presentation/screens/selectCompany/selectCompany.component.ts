@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
-import { ListCompaniesService } from "../../../domain/company/service/ListCompaniesService";
+import { ListCompaniesService } from "../../../domain/company/service/list-companies.service";
 import { CompanyListItem } from "../../../data/company/model/ListCompaniesRequest";
 import { ApiError } from "../../../../core/network/model/ApiError";
-import { SelectCompanyService } from "../../../domain/company/service/SelectCompanyService";
+import { SelectCompanyService } from "../../../domain/company/service/select-company.service";
 import { Router } from "@angular/router";
 
 @Component({
