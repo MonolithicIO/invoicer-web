@@ -1,9 +1,10 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-signup-screen",
@@ -22,6 +23,8 @@ export class SignUpComponent {
   confirmEmail = signal("");
   password = signal("");
   showPassword = signal(false);
+
+  private router = inject(Router);
 
   onChangeEmail(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -45,5 +48,9 @@ export class SignUpComponent {
 
   onSubmit() {
     alert("hello world");
+  }
+
+  goToSignIn() {
+    this.router.navigate(["login"]);
   }
 }
