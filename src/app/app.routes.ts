@@ -5,7 +5,7 @@ import { SignUpComponent } from "./auth/screen/signup/signup.component";
 import { HomeComponent } from "./presentation/screens/home/home.component";
 import { AuthGuard } from "./presentation/navigation/guards/AuthGuard";
 import { NoAuthGuard } from "./presentation/navigation/guards/NoAuthGuard";
-import { SelectCompanyComponent } from "./presentation/screens/selectCompany/selectCompany.component";
+import { SelectCompanyComponent } from "./company/screen/selectCompany/selectCompany.component";
 import { CompanySelectedGuard } from "./presentation/navigation/guards/CompanySelectedGuard";
 
 export const routes: Routes = [

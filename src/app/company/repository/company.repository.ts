@@ -1,9 +1,7 @@
 import { inject, Injectable } from "@angular/core";
-import { CompanyRemoteDatasource } from "../../../data/company/datasource/CompanyRemoteDatasource";
-import { CompaniesListModel } from "../model/CompaniesListModel";
 import { Observable } from "rxjs";
-import { CompanyLocalDatasource } from "../../../data/company/datasource/CompanyLocalDatasource";
-import { SelectedCompanyModel } from "../model/SelectedCompanyModel";
+import { CompanyLocalDatasource } from "../datasource/company-local.datasource";
+import { CompanyRemoteDatasource } from "../datasource/company-remote.datasource";
 
 @Injectable({ providedIn: "root" })
 export class CompanyRepository {
@@ -34,4 +32,21 @@ export class CompanyRepository {
   clearSelectedCompany() {
     this.companyLocalDatasource.clearSelectedCompany();
   }
+}
+
+export interface CompaniesListModel {
+  companies: CompanyListItemModel[];
+  total: number;
+  nextPageIndex: number | null;
+}
+
+export interface CompanyListItemModel {
+  document: string;
+  name: string;
+  id: string;
+}
+
+export interface SelectedCompanyModel {
+  id: string;
+  name: string;
 }

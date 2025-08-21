@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
-import { SelectedCompany } from "../model/SelectedCompany";
 
 @Injectable({ providedIn: "root" })
 export class CompanyLocalDatasource {
-  storeSelectedCompany(company: SelectedCompany) {
+  storeSelectedCompany(company: StoredSelectedCompany) {
     localStorage.setItem("selectedCompany", JSON.stringify(company));
   }
 
-  getSelectedCompany(): SelectedCompany | null {
+  getSelectedCompany(): StoredSelectedCompany | null {
     const company = localStorage.getItem("selectedCompany");
     return company ? JSON.parse(company) : null;
   }
@@ -15,4 +14,9 @@ export class CompanyLocalDatasource {
   clearSelectedCompany() {
     localStorage.removeItem("selectedCompany");
   }
+}
+
+export interface StoredSelectedCompany {
+  id: string;
+  name: string;
 }

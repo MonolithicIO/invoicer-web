@@ -1,5 +1,5 @@
 import { CanActivateFn, Router } from "@angular/router";
-import { CompanyRepository } from "../../../domain/company/repository/company.repository";
+import { CompanyRepository } from "../../../company/repository/company.repository";
 import { inject } from "@angular/core";
 
 export const CompanySelectedGuard: CanActivateFn = () => {

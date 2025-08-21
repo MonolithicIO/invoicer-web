@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { CompanyRepository } from "../../domain/company/repository/company.repository";
+import { CompanyRepository } from "../../company/repository/company.repository";
 import { AuthTokenRepository } from "../repository/auth-token.repository";
 
 @Injectable({ providedIn: "root" })

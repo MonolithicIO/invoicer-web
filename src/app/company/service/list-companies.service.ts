@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { CompanyRepository } from "../repository/company.repository";
+import { CompanyRepository } from "../../../company/repository/company.repository";
 
 @Injectable({ providedIn: "root" })
 export class ListCompaniesService {
