@@ -31,3 +31,7 @@
 .sign-up-form button {
   width: 100%;
 }
+
+.sign-up-form app-password-strength {
+  width: 100%;
+}

@@ -6,6 +6,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { Router } from "@angular/router";
 import { PasswordStrengthChecker } from "../../../domain/login/service/password-strength-checker.service";
+import { PasswordStrengthComponent } from "./views/password-strength/password-strength.component";
 
 @Component({
   selector: "app-signup-screen",
@@ -17,15 +18,17 @@ import { PasswordStrengthChecker } from "../../../domain/login/service/password-
     MatButtonModule,
     FormsModule,
     MatIconModule,
+    PasswordStrengthComponent,
   ],
 })
 export class SignUpComponent {
   email = signal("");
   confirmEmail = signal("");
-  password = signal("");
   showPassword = signal(false);
+  password = signal("");
   passwordStrength = computed(() => {
-    this.passwordChecker.check(this.password());
+    const newStrength = this.passwordChecker.check(this.password());
+    return newStrength;
   });
 
   private router = inject(Router);
@@ -52,7 +55,7 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    alert("hello world");
+    alert(this.password());
   }
 
   goToSignIn() {
