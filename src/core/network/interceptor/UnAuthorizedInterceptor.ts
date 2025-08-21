@@ -15,9 +15,9 @@ import {
   take,
   throwError,
 } from "rxjs";
-import { RefreshTokenService } from "../../../app/domain/login/service/RefreshTokenService";
+import { RefreshTokenService } from "../../../app/domain/login/service/refresh-token.service";
 import { Router } from "@angular/router";
-import { AuthTokenRepository } from "../../../app/domain/login/repository/AuthTokenRepository";
+import { AuthTokenRepository } from "../../../app/domain/login/repository/auth-token.repository";
 import { LoginResponse } from "../../../app/data/login/model/LoginResponse";
 
 export function UnAuthorizedInterceptor(

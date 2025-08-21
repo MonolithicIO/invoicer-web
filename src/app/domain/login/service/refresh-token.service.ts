@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
-import { LoginRepository } from "../repository/LoginRepository";
-import { AuthTokenRepository } from "../repository/AuthTokenRepository";
+import { LoginRepository } from "../repository/login.repository";
+import { AuthTokenRepository } from "../repository/auth-token.repository";
 import { LoginResponse } from "../../../data/login/model/LoginResponse";
 import { Observable } from "rxjs";
 

@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { AuthTokenRepository } from "../repository/AuthTokenRepository";
-import { CompanyRepository } from "../../company/repository/CompanyRepository";
+import { AuthTokenRepository } from "../repository/auth-token.repository";
+import { CompanyRepository } from "../../company/repository/company.repository";
 
 @Injectable({ providedIn: "root" })
 export class LogoutService {

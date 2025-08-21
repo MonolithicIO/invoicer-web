@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { CompanyRepository } from "../repository/CompanyRepository";
+import { CompanyRepository } from "../repository/company.repository";
 import { SelectedCompanyModel } from "../model/SelectedCompanyModel";
 
 @Injectable({ providedIn: "root" })
