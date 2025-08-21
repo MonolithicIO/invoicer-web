@@ -1,12 +1,12 @@
 import { Routes } from "@angular/router";
-import { LoginComponent } from "./auth/screen/login/login.component";
 import { NotFoundComponent } from "./presentation/screens/notFound/notFound.component";
-import { SignUpComponent } from "./auth/screen/signup/signup.component";
 import { HomeComponent } from "./presentation/screens/home/home.component";
-import { AuthGuard } from "./presentation/navigation/guards/AuthGuard";
-import { NoAuthGuard } from "./presentation/navigation/guards/NoAuthGuard";
-import { SelectCompanyComponent } from "./company/screen/selectCompany/selectCompany.component";
-import { CompanySelectedGuard } from "./presentation/navigation/guards/CompanySelectedGuard";
+import { SelectCompanyComponent } from "./feature/company/screen/select-company/select-company.component";
+import { NoAuthGuard } from "../core/navigation/guards/NoAuthGuard";
+import { AuthGuard } from "../core/navigation/guards/AuthGuard";
+import { CompanySelectedGuard } from "../core/navigation/guards/CompanySelectedGuard";
+import { SignUpComponent } from "./feature/auth/screen/signup/signup.component";
+import { LoginComponent } from "./feature/auth/screen/login/login.component";
 
 export const routes: Routes = [
   {

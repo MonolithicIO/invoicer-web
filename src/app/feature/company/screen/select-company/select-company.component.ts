@@ -1,17 +1,19 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
-import { ListCompaniesService } from "../../../domain/company/service/list-companies.service";
-import { CompanyListItem } from "../../../data/company/model/ListCompaniesRequest";
-import { ApiError } from "../../../../core/network/model/ApiError";
-import { SelectCompanyService } from "../../../domain/company/service/select-company.service";
+import { ApiError } from "../../../../../core/network/model/ApiError";
 import { Router } from "@angular/router";
+import {
+  CompanyListItemDto,
+  ListCompaniesService,
+} from "../../service/list-companies.service";
+import { SelectCompanyService } from "../../service/select-company.service";
 
 @Component({
   selector: "app-select-company",
-  templateUrl: "./selectCompany.component.html",
-  styleUrls: ["./selectCompany.component.css"],
+  templateUrl: "./select-company.component.html",
+  styleUrls: ["./select-company.component.css"],
 })
 export class SelectCompanyComponent implements OnInit {
-  companies = signal<CompanyListItem[]>([]);
+  companies = signal<CompanyListItemDto[]>([]);
 
   private listCompanyService = inject(ListCompaniesService);
   private selectCompanyService = inject(SelectCompanyService);
@@ -33,7 +35,7 @@ export class SelectCompanyComponent implements OnInit {
       });
   }
 
-  onSelectItem(item: CompanyListItem): void {
+  onSelectItem(item: CompanyListItemDto): void {
     this.selectCompanyService.selectCompany({
       name: item.name,
       id: item.id,
