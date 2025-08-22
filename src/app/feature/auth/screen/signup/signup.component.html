@@ -2,13 +2,13 @@
   <section class="sign-up-form-wrapper">
     <h1>Create account</h1>
 
-    <form class="sign-up-form">
+    <form [formGroup]="signUpFormGroup" class="sign-up-form">
       <mat-form-field appearance="outline">
         <mat-label>E-mail</mat-label>
         <mat-icon matPrefix>mail_outline</mat-icon>
         <input
           matInput
-          [formControl]="emailControl"
+          formControlName="email"
           placeholder="john@gmail.com"
           type="email"
         />
@@ -22,9 +22,8 @@
         <mat-icon matPrefix>mail_outline</mat-icon>
         <input
           matInput
-          [formControl]="confirmEmailControl"
+          formControlName="confirmEmail"
           placeholder="Confirm your e-mail"
-          (blur)="onConfirmEmailBlur()"
         />
         @if(confirmEmailErrorText()) {
         <mat-error>{{ confirmEmailErrorText() }}</mat-error>
@@ -36,7 +35,7 @@
         <mat-icon matPrefix>lock_outline</mat-icon>
         <input
           matInput
-          [formControl]="passwordControl"
+          formControlName="password"
           placeholder="********"
           [type]="showPassword() ? 'text' : 'password'"
         />
@@ -53,7 +52,11 @@
 
       <app-password-strength [passwordStrength]="passwordStrength()" />
 
-      <button mat-flat-button (click)="onSubmit()" [disabled]="false">
+      <button
+        mat-flat-button
+        (click)="onSubmit()"
+        [disabled]="signUpFormGroup.invalid"
+      >
         Sign up
       </button>
 

@@ -1,8 +1,11 @@
 import { Component, inject, signal } from "@angular/core";
 import {
+  AbstractControl,
   FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -37,23 +40,58 @@ export class SignUpComponent {
   private router = inject(Router);
   private passwordChecker = inject(PasswordStrengthChecker);
 
-  readonly emailControl = new FormControl("", [
-    Validators.required,
-    Validators.email,
-  ]);
+  readonly signUpFormGroup = new FormGroup({
+    email: new FormControl("", [Validators.required, Validators.email]),
+    confirmEmail: new FormControl("", [
+      Validators.required,
+      Validators.email,
+      this.emailWatchValidator.bind(this),
+    ]),
+    password: new FormControl("", [
+      Validators.required,
+      this.passwordStrengthValidator.bind(this),
+    ]),
+  });
 
-  readonly confirmEmailControl = new FormControl("", [
-    Validators.required,
-    Validators.email,
-  ]);
+  private get emailControl() {
+    return this.signUpFormGroup.get("email") as FormControl;
+  }
 
-  readonly passwordControl = new FormControl("", [Validators.required]);
+  private get confirmEmailControl() {
+    return this.signUpFormGroup.get("confirmEmail") as FormControl;
+  }
+
+  private get passwordControl() {
+    return this.signUpFormGroup.get("password") as FormControl;
+  }
+
+  private emailWatchValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    if (!control.value || !this.emailControl?.value) {
+      return null;
+    }
+
+    return control.value === this.emailControl.value
+      ? null
+      : { emailMismatch: true };
+  }
+
+  private passwordStrengthValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    const strength = this.passwordChecker.check(control.value ?? "");
+    const isStrong = Object.keys(strength).every(
+      (key) => strength[key as keyof PasswordStrength]
+    );
+    return isStrong ? null : { weak: true };
+  }
 
   constructor() {
     merge(this.passwordControl.valueChanges).subscribe((value) => {
       const strength = this.passwordChecker.check(value ?? "");
       this.passwordStrength.set(strength);
-      this.setPasswordErrorMessage(strength);
+      this.setPasswordErrorMessage();
     });
 
     merge(
@@ -65,7 +103,8 @@ export class SignUpComponent {
 
     merge(
       this.confirmEmailControl.valueChanges,
-      this.confirmEmailControl.statusChanges
+      this.confirmEmailControl.statusChanges,
+      this.signUpFormGroup.statusChanges
     ).subscribe(() => {
       this.setConfirmEmailErrorText();
     });
@@ -108,17 +147,6 @@ export class SignUpComponent {
     this.router.navigate(["login"]);
   }
 
-  onConfirmEmailBlur() {
-    const email = this.emailControl.value;
-    const confirmEmail = this.confirmEmailControl.value;
-
-    if (email !== confirmEmail) {
-      this.confirmEmailErrorText.set("Emails do not match");
-    } else {
-      this.confirmEmailErrorText.set("");
-    }
-  }
-
   private setEmailErrorText() {
     if (this.emailControl.hasError("required")) {
       this.emailErrorText.set("Email is required");
@@ -134,17 +162,14 @@ export class SignUpComponent {
       this.confirmEmailErrorText.set("Confirm Email is required");
     } else if (this.confirmEmailControl.hasError("email")) {
       this.confirmEmailErrorText.set("Invalid email format");
+    } else if (this.confirmEmailControl.hasError("emailMismatch")) {
+      this.confirmEmailErrorText.set("Emails do not match");
     } else {
       this.confirmEmailErrorText.set("");
     }
   }
 
-  private setPasswordErrorMessage(strength: PasswordStrength) {
-    const isPasswordStrong = Object.keys(strength).every((key) => {
-      return strength[key as keyof PasswordStrength] === true;
-    });
-    this.passwordControl.setErrors(isPasswordStrong ? null : { weak: true });
-
+  private setPasswordErrorMessage() {
     if (this.passwordControl.hasError("required")) {
       this.passwordErrorText.set("Password is required");
     } else if (this.passwordControl.hasError("weak")) {
