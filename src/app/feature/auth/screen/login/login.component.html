@@ -1,5 +1,5 @@
 <main class="login-container">
-  <form class="login-form">
+  <form [formGroup]="loginFormGroup" class="login-form">
     <h1>Invoicer web</h1>
 
     <mat-form-field appearance="outline" class="login-field">
@@ -8,9 +8,11 @@
         matInput
         placeholder="john@example.com"
         type="email"
-        [value]="email()"
-        (input)="onChangeEmail($event)"
+        formControlName="email"
       />
+      @if(emailErrorText()) {
+      <mat-error>{{ emailErrorText() }}</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="login-field">
@@ -19,16 +21,19 @@
         matInput
         placeholder="*****"
         type="password"
-        [value]="password()"
-        (input)="onChangePassword($event)"
+        formControlName="password"
       />
+
+      @if(passwordErrorText()) {
+      <mat-error>{{ passwordErrorText() }}</mat-error>
+      }
     </mat-form-field>
 
     <button
       class="login-field"
       mat-flat-button
       (click)="onLogin()"
-      [disabled]="!isButtonEnabled()"
+      [disabled]="!loginFormGroup.valid"
     >
       Login
     </button>

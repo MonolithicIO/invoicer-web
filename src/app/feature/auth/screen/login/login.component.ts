@@ -3,33 +3,64 @@ import { Router } from "@angular/router";
 
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { FormsModule } from "@angular/forms";
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  Validators,
+  ReactiveFormsModule,
+} from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { IdentityLoginService } from "../../service/identity-login.service";
 import { ApiError } from "../../../../../core/network/model/ApiError";
+import { merge } from "rxjs";
 
 @Component({
   selector: "app-login-screen",
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css",
-  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule],
+  imports: [
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+  ],
 })
 export class LoginComponent {
   private identityLoginService = inject(IdentityLoginService);
   private router = inject(Router);
 
-  email = signal("");
-  password = signal("");
-  isButtonEnabled = computed(() => this.email() && this.password());
+  readonly loginFormGroup = new FormGroup({
+    email: new FormControl("", [Validators.email, Validators.required]),
+    password: new FormControl("", [Validators.required]),
+  });
 
-  onChangeEmail(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.email.set(input.value);
+  private get emailControl() {
+    return this.loginFormGroup.get("email") as FormControl;
   }
 
-  onChangePassword(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.password.set(input.value);
+  private get passwordControl() {
+    return this.loginFormGroup.get("password") as FormControl;
+  }
+
+  emailErrorText = signal("");
+  passwordErrorText = signal("");
+
+  constructor() {
+    merge(
+      this.emailControl.valueChanges,
+      this.passwordControl.statusChanges
+    ).subscribe(() => {
+      this.setEmailError();
+    });
+
+    merge(
+      this.passwordControl.valueChanges,
+      this.passwordControl.statusChanges
+    ).subscribe(() => {
+      this.setPasswordError();
+    });
   }
 
   onLoginWithGoogle() {
@@ -39,8 +70,8 @@ export class LoginComponent {
   onLogin() {
     this.identityLoginService
       .login({
-        email: this.email(),
-        password: this.password(),
+        email: this.emailControl.value,
+        password: this.passwordControl.value,
       })
       .subscribe({
         next: () => {
@@ -54,5 +85,21 @@ export class LoginComponent {
 
   onGoToSignUP() {
     this.router.navigate(["/signup"]);
+  }
+
+  private setEmailError() {
+    if (this.loginFormGroup.get("email")?.invalid) {
+      this.emailErrorText.set("Invalid email");
+    } else {
+      this.emailErrorText.set("");
+    }
+  }
+
+  private setPasswordError() {
+    if (this.loginFormGroup.get("password")?.invalid) {
+      this.passwordErrorText.set("Invalid password");
+    } else {
+      this.passwordErrorText.set("");
+    }
   }
 }
