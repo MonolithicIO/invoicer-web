@@ -84,20 +84,24 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    // this.signUpService
-    //   .signUp({
-    //     email: this.email(),
-    //     confirmEmail: this.confirmEmail(),
-    //     password: this.password(),
-    //   })
-    //   .subscribe({
-    //     next: () => {
-    //       alert("Sign up successful");
-    //     },
-    //     error: () => {
-    //       alert("Sign up failed");
-    //     },
-    //   });
+    const email = this.emailControl.value ?? "";
+    const confirmEmail = this.confirmEmailControl.value ?? "";
+    const password = this.passwordControl.value ?? "";
+
+    this.signUpService
+      .signUp({
+        email: email,
+        confirmEmail: confirmEmail,
+        password: password,
+      })
+      .subscribe({
+        next: () => {
+          alert("Sign up successful");
+        },
+        error: () => {
+          alert("Sign up failed");
+        },
+      });
   }
 
   goToSignIn() {
