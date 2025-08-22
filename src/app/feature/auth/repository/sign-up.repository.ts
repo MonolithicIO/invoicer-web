@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { SignUpDataSource } from "../data-source/sign-up.datasource";
+import { SignUpDataSource } from "../datasource/sign-up.datasource";
 import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
