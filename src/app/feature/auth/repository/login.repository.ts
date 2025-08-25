@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 
 import { map, Observable } from "rxjs";
-import { LoginRemoteDatasource } from "../data-source/login.datasource";
+import { LoginRemoteDatasource } from "../datasource/login.datasource";
 
 @Injectable({
   providedIn: "root",

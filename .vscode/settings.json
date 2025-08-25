@@ -1,0 +1,48 @@
+{
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "explorer.confirmPasteNative": false,
+  "workbench.sideBar.location": "right",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "material-icon-theme.folders.theme": "specific",
+  "editor.fontSize": 16,
+  "editor.fontLigatures": true,
+  "material-icon-theme.folders.associations": {
+    "feature": "components",
+    "datasource": "class"
+  },
+  "material-icon-theme.files.associations": {
+    "**.datasource.ts": "angular",
+    "**.repository.ts": "angular"
+  },
+  "material-icon-theme.files.customClones": [
+    {
+      "name": "angular-repo",
+      "base": "angular",
+      "color": "green-400",
+      "fileExtensions": ["repository.ts"]
+    },
+    {
+      "name": "angular-repo-spec",
+      "base": "test-ts",
+      "color": "green-400",
+      "fileExtensions": ["repository.spec.ts"]
+    },
+    {
+      "name": "angular-datasource",
+      "base": "angular",
+      "color": "red-400",
+      "fileExtensions": ["datasource.ts"]
+    },
+    {
+      "name": "angular-datasource-spec",
+      "base": "test-ts",
+      "color": "red-400",
+      "fileExtensions": ["datasource.spec.ts"]
+    }
+  ]
+}

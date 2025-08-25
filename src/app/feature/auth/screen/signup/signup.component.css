@@ -21,7 +21,7 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 .sign-up-form mat-form-field {

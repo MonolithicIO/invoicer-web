@@ -2,32 +2,40 @@
   <section class="sign-up-form-wrapper">
     <h1>Create account</h1>
 
-    <form class="sign-up-form">
+    <form [formGroup]="signUpFormGroup" class="sign-up-form">
       <mat-form-field appearance="outline">
         <mat-label>E-mail</mat-label>
+        <mat-icon matPrefix>mail_outline</mat-icon>
         <input
           matInput
+          formControlName="email"
           placeholder="john@gmail.com"
           type="email"
-          (input)="onChangeEmail($event)"
         />
+        @if(emailErrorText()) {
+        <mat-error>{{ emailErrorText() }}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Confirm E-mail</mat-label>
+        <mat-icon matPrefix>mail_outline</mat-icon>
         <input
           matInput
-          placeholder="john@gmail.com"
-          type="email"
-          (input)="onChangeConfirmEmail($event)"
+          formControlName="confirmEmail"
+          placeholder="Confirm your e-mail"
         />
+        @if(confirmEmailErrorText()) {
+        <mat-error>{{ confirmEmailErrorText() }}</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
+        <mat-icon matPrefix>lock_outline</mat-icon>
         <input
-          (input)="onChangePassword($event)"
           matInput
+          formControlName="password"
           placeholder="********"
           [type]="showPassword() ? 'text' : 'password'"
         />
@@ -36,11 +44,21 @@
             showPassword() ? "visibility_off" : "visibility"
           }}</mat-icon>
         </button>
+
+        @if(passwordErrorText()) {
+        <mat-error>{{ passwordErrorText() }}</mat-error>
+        }
       </mat-form-field>
 
       <app-password-strength [passwordStrength]="passwordStrength()" />
 
-      <button mat-flat-button (click)="onSubmit()">Sign up</button>
+      <button
+        mat-flat-button
+        (click)="onSubmit()"
+        [disabled]="signUpFormGroup.invalid"
+      >
+        Sign up
+      </button>
 
       <button mat-button (click)="goToSignIn()">
         Already have an account? Sign in
