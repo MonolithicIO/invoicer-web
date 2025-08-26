@@ -84,6 +84,10 @@ export class SelectCompanyComponent implements OnInit {
         },
       });
   }
+
+  onCreateNewClick() {
+    alert("Not implemented yet");
+  }
 }
 
 export enum SelectCompanyMode {

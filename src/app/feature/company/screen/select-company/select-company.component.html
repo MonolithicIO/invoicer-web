@@ -33,9 +33,16 @@
     >
       Continue
     </button>
+
+    <button mat-stroked-button (click)="onCreateNewClick()">
+      Create new company
+    </button>
   </section>
 
   } @else {
   <p>No companies available. Please add a company first.</p>
+  <button mat-stroked-button (click)="onCreateNewClick()">
+    Create new company
+  </button>
   } } }
 </main>
