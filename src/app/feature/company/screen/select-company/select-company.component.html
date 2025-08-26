@@ -1,14 +1,48 @@
 <main class="select-company-container">
-  <h1>Select a Company</h1>
-  <div>
-    <h2>My List of Items:</h2>
-    @for (item of companies(); track $index) {
-    <div class="select-company-item">
-      <p>{{ item.name }}</p>
-      <button (click)="onSelectItem(item)">Select</button>
-    </div>
-    } @empty {
-    <p>No items to display.</p>
-    }
-  </div>
+  @switch (uiMode()) { @case (SelectCompanyMode.Error) {
+
+  <app-error-state [onRetry]="fetchCompanies.bind(this)" />
+
+  } @case (SelectCompanyMode.Loading) {
+
+  <section class="select-company-loading">
+    <mat-spinner strokeWidth="4" />
+    <p>Loading companies...</p>
+  </section>
+
+  } @case (SelectCompanyMode.Content) { @if(companies()) {
+  <section class="select-company-content">
+    <h1>Select a Company</h1>
+    <mat-card>
+      @for (item of companies(); track $index) {
+      <app-select-company-card
+        [onUnselect]="unSelectItem.bind(this)"
+        [onSelect]="onSelectItem.bind(this, item)"
+        [isSelected]="item.id === selectedCompanyId()"
+        [companyName]="item.name"
+        [document]="item.document"
+        class="select-company-card-item"
+      />
+      }
+    </mat-card>
+
+    <button
+      mat-flat-button
+      [disabled]="selectedCompanyId() === null"
+      (click)="onSubmit()"
+    >
+      Continue
+    </button>
+
+    <button mat-stroked-button (click)="onCreateNewClick()">
+      Create new company
+    </button>
+  </section>
+
+  } @else {
+  <p>No companies available. Please add a company first.</p>
+  <button mat-stroked-button (click)="onCreateNewClick()">
+    Create new company
+  </button>
+  } } }
 </main>
