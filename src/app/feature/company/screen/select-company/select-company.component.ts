@@ -8,12 +8,19 @@ import { SelectCompanyService } from "../../service/select-company.service";
 import { tap } from "rxjs";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SelectCompanyCardComponent } from "./views/select-company-card/select-company-card.component";
+import { MatCardModule } from "@angular/material/card";
+import { MatButton } from "@angular/material/button";
 
 @Component({
   selector: "app-select-company",
   templateUrl: "./select-company.component.html",
   styleUrls: ["./select-company.component.css"],
-  imports: [MatProgressSpinnerModule, SelectCompanyCardComponent],
+  imports: [
+    MatProgressSpinnerModule,
+    SelectCompanyCardComponent,
+    MatCardModule,
+    MatButton,
+  ],
 })
 export class SelectCompanyComponent implements OnInit {
   SelectCompanyMode = SelectCompanyMode;
@@ -52,6 +59,24 @@ export class SelectCompanyComponent implements OnInit {
 
   onSelectItem(item: CompanyListItemDto): void {
     this.selectedCompanyId.set(item.id);
+  }
+
+  unSelectItem(): void {
+    this.selectedCompanyId.set(null);
+  }
+
+  onSubmit() {
+    const company = this.companies().find(
+      (c) => c.id === this.selectedCompanyId()
+    );
+
+    if (company) {
+      this.selectCompanyService.selectCompany({
+        name: company.name,
+        id: company.id,
+      });
+      this.router.navigate(["/home"]);
+    }
   }
 }
 

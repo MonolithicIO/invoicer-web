@@ -10,21 +10,32 @@
     <p>Loading companies...</p>
   </section>
 
-  } @case (SelectCompanyMode.Content) {
+  } @case (SelectCompanyMode.Content) { @if(companies()) {
   <section class="select-company-content">
     <h1>Select a Company</h1>
-    @for (item of companies(); track $index) {
-    <app-select-company-card
-      [onSelect]="onSelectItem.bind(this, item)"
-      [isSelected]="item.id === selectedCompanyId()"
-      [companyName]="item.name"
-      [document]="item.document"
-      class="select-company-card-item"
-    />
-    } @empty {
-    <p>No items to display.</p>
-    }
+    <mat-card>
+      @for (item of companies(); track $index) {
+      <app-select-company-card
+        [onUnselect]="unSelectItem.bind(this)"
+        [onSelect]="onSelectItem.bind(this, item)"
+        [isSelected]="item.id === selectedCompanyId()"
+        [companyName]="item.name"
+        [document]="item.document"
+        class="select-company-card-item"
+      />
+      }
+    </mat-card>
+
+    <button
+      mat-flat-button
+      [disabled]="selectedCompanyId() === null"
+      (click)="onSubmit()"
+    >
+      Continue
+    </button>
   </section>
 
-  } }
+  } @else {
+  <p>No companies available. Please add a company first.</p>
+  } } }
 </main>

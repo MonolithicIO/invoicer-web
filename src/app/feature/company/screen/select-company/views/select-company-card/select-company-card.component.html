@@ -15,7 +15,7 @@
       </div>
       <div>
         @if(isSelected) {
-        <button mat-flat-button>Selected</button>
+        <button mat-flat-button (click)="onUnselect()">Selected</button>
         }@else {
         <button mat-stroked-button (click)="onSelect()">Select</button>
         }

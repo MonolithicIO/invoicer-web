@@ -30,7 +30,21 @@
   align-items: center;
   justify-content: center;
   width: 40%;
+  gap: 30px;
+}
+
+.select-company-content mat-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   gap: 16px;
+  padding: 20px;
+  height: 60%;
+  overflow-y: scroll;
+}
+
+.select-company-content button {
+  width: 100%;
 }
 
 .select-company-card-item {

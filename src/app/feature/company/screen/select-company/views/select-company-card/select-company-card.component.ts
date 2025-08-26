@@ -17,4 +17,7 @@ export class SelectCompanyCardComponent {
   @Input() onSelect: () => void = () => {
     void 0;
   };
+  @Input() onUnselect: () => void = () => {
+    void 0;
+  };
 }
