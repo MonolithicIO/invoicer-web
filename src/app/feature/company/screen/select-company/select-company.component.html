@@ -1,7 +1,7 @@
 <main class="select-company-container">
   @switch (uiMode()) { @case (SelectCompanyMode.Error) {
 
-  <p>Error loading companies. Please try again later.</p>
+  <app-error-state [onRetry]="fetchCompanies.bind(this)" />
 
   } @case (SelectCompanyMode.Loading) {
 

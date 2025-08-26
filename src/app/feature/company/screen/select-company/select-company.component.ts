@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SelectCompanyCardComponent } from "./views/select-company-card/select-company-card.component";
 import { MatCardModule } from "@angular/material/card";
 import { MatButton } from "@angular/material/button";
+import { ErrorStateComponent } from "../../../../../core/design/views/error-state/error-state.component";
 
 @Component({
   selector: "app-select-company",
@@ -20,6 +21,7 @@ import { MatButton } from "@angular/material/button";
     SelectCompanyCardComponent,
     MatCardModule,
     MatButton,
+    ErrorStateComponent,
   ],
 })
 export class SelectCompanyComponent implements OnInit {
@@ -34,27 +36,7 @@ export class SelectCompanyComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.listCompanyService
-      .listCompanies({
-        limit: 100,
-        page: 0,
-      })
-      .pipe(
-        tap({
-          subscribe: () => {
-            this.uiMode.set(SelectCompanyMode.Loading);
-          },
-        })
-      )
-      .subscribe({
-        next: (companies) => {
-          this.companies.set(companies.companies);
-          this.uiMode.set(SelectCompanyMode.Content);
-        },
-        error: () => {
-          this.uiMode.set(SelectCompanyMode.Error);
-        },
-      });
+    this.fetchCompanies();
   }
 
   onSelectItem(item: CompanyListItemDto): void {
@@ -77,6 +59,30 @@ export class SelectCompanyComponent implements OnInit {
       });
       this.router.navigate(["/home"]);
     }
+  }
+
+  fetchCompanies() {
+    this.listCompanyService
+      .listCompanies({
+        limit: 100,
+        page: 0,
+      })
+      .pipe(
+        tap({
+          subscribe: () => {
+            this.uiMode.set(SelectCompanyMode.Loading);
+          },
+        })
+      )
+      .subscribe({
+        next: (companies) => {
+          this.companies.set(companies.companies);
+          this.uiMode.set(SelectCompanyMode.Content);
+        },
+        error: () => {
+          this.uiMode.set(SelectCompanyMode.Error);
+        },
+      });
   }
 }
 
