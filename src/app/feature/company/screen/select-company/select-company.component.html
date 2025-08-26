@@ -1,14 +1,30 @@
 <main class="select-company-container">
-  <h1>Select a Company</h1>
-  <div>
-    <h2>My List of Items:</h2>
+  @switch (uiMode()) { @case (SelectCompanyMode.Error) {
+
+  <p>Error loading companies. Please try again later.</p>
+
+  } @case (SelectCompanyMode.Loading) {
+
+  <section class="select-company-loading">
+    <mat-spinner strokeWidth="4" />
+    <p>Loading companies...</p>
+  </section>
+
+  } @case (SelectCompanyMode.Content) {
+  <section class="select-company-content">
+    <h1>Select a Company</h1>
     @for (item of companies(); track $index) {
-    <div class="select-company-item">
-      <p>{{ item.name }}</p>
-      <button (click)="onSelectItem(item)">Select</button>
-    </div>
+    <app-select-company-card
+      [onSelect]="onSelectItem.bind(this, item)"
+      [isSelected]="item.id === selectedCompanyId()"
+      [companyName]="item.name"
+      [document]="item.document"
+      class="select-company-card-item"
+    />
     } @empty {
     <p>No items to display.</p>
     }
-  </div>
+  </section>
+
+  } }
 </main>

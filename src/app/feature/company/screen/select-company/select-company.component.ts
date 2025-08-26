@@ -1,19 +1,26 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
-import { ApiError } from "../../../../../core/network/model/ApiError";
 import { Router } from "@angular/router";
 import {
   CompanyListItemDto,
   ListCompaniesService,
 } from "../../service/list-companies.service";
 import { SelectCompanyService } from "../../service/select-company.service";
+import { tap } from "rxjs";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { SelectCompanyCardComponent } from "./views/select-company-card/select-company-card.component";
 
 @Component({
   selector: "app-select-company",
   templateUrl: "./select-company.component.html",
   styleUrls: ["./select-company.component.css"],
+  imports: [MatProgressSpinnerModule, SelectCompanyCardComponent],
 })
 export class SelectCompanyComponent implements OnInit {
+  SelectCompanyMode = SelectCompanyMode;
+
   companies = signal<CompanyListItemDto[]>([]);
+  uiMode = signal<SelectCompanyMode>(SelectCompanyMode.Loading);
+  selectedCompanyId = signal<string | null>(null);
 
   private listCompanyService = inject(ListCompaniesService);
   private selectCompanyService = inject(SelectCompanyService);
@@ -25,21 +32,31 @@ export class SelectCompanyComponent implements OnInit {
         limit: 100,
         page: 0,
       })
+      .pipe(
+        tap({
+          subscribe: () => {
+            this.uiMode.set(SelectCompanyMode.Loading);
+          },
+        })
+      )
       .subscribe({
         next: (companies) => {
           this.companies.set(companies.companies);
+          this.uiMode.set(SelectCompanyMode.Content);
         },
-        error: (err: ApiError) => {
-          alert(`Failed to load companies ${err.message}`);
+        error: () => {
+          this.uiMode.set(SelectCompanyMode.Error);
         },
       });
   }
 
   onSelectItem(item: CompanyListItemDto): void {
-    this.selectCompanyService.selectCompany({
-      name: item.name,
-      id: item.id,
-    });
-    this.router.navigate(["/home"]);
+    this.selectedCompanyId.set(item.id);
   }
+}
+
+export enum SelectCompanyMode {
+  Loading,
+  Content,
+  Error,
 }

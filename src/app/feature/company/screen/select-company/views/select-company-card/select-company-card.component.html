@@ -1,0 +1,25 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <section class="card-content">
+      <div class="company-info">
+        <div class="company-info-row">
+          <mat-icon>business</mat-icon>
+          <b>{{ companyName }}</b>
+        </div>
+        <div class="company-info-row">
+          <mat-icon>article_outline</mat-icon>
+          <span
+            >Document: <b>{{ document }}</b></span
+          >
+        </div>
+      </div>
+      <div>
+        @if(isSelected) {
+        <button mat-flat-button>Selected</button>
+        }@else {
+        <button mat-stroked-button (click)="onSelect()">Select</button>
+        }
+      </div>
+    </section>
+  </mat-card-content>
+</mat-card>
