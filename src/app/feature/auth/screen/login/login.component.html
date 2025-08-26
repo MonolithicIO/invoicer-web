@@ -20,9 +20,14 @@
       <input
         matInput
         placeholder="*****"
-        type="password"
+        [type]="showPassword() ? 'text' : 'password'"
         formControlName="password"
       />
+      <button mat-button matSuffix (click)="togglePasswordVisibility()">
+        <mat-icon>{{
+          showPassword() ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
 
       @if(passwordErrorText()) {
       <mat-error>{{ passwordErrorText() }}</mat-error>
