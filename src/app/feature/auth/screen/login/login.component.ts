@@ -14,6 +14,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { IdentityLoginService } from "../../service/identity-login.service";
 import { ApiError } from "../../../../../core/network/model/ApiError";
 import { merge } from "rxjs";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: "app-login-screen",
@@ -25,6 +26,7 @@ import { merge } from "rxjs";
     FormsModule,
     MatButtonModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
 })
 export class LoginComponent {
@@ -44,6 +46,7 @@ export class LoginComponent {
     return this.loginFormGroup.get("password") as FormControl;
   }
 
+  showPassword = signal(false);
   emailErrorText = signal("");
   passwordErrorText = signal("");
 
@@ -61,6 +64,10 @@ export class LoginComponent {
     ).subscribe(() => {
       this.setPasswordError();
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword.set(!this.showPassword());
   }
 
   onLoginWithGoogle() {
