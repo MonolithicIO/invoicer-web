@@ -10,7 +10,7 @@
     <p>Loading companies...</p>
   </section>
 
-  } @case (SelectCompanyMode.Content) { @if(companies()) {
+  } @case (SelectCompanyMode.Content) { @if(companies().length > 0) {
   <section class="select-company-content">
     <h1>Select a Company</h1>
     <mat-card>

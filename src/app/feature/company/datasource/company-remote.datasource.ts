@@ -17,6 +17,10 @@ export class CompanyRemoteDatasource {
       },
     });
   }
+
+  createCompany(request: CreateCompanyRequest): Observable<void> {
+    return this.httpClient.post<void>("/v1/company", request);
+  }
 }
 
 export interface ListCompaniesResponse {
@@ -29,4 +33,28 @@ export interface CompanyListResponseItem {
   document: string;
   name: string;
   id: string;
+}
+
+export interface CreateCompanyRequest {
+  name: string;
+  document: string;
+  address: CreateCompanyAddressRequest;
+  primaryAccount: CreateCompanyPayAccountRequest;
+  intermediaryAccount: CreateCompanyPayAccountRequest | null;
+}
+
+export interface CreateCompanyAddressRequest {
+  addressLine1: string;
+  addressLine2: string | null;
+  city: string;
+  state: string;
+  postalCode: string;
+  countryCode: string;
+}
+
+export interface CreateCompanyPayAccountRequest {
+  iban: string;
+  swift: string;
+  bankName: string;
+  bankAddress: string;
 }
