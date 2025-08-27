@@ -32,6 +32,10 @@ export class CompanyRepository {
   clearSelectedCompany() {
     this.companyLocalDatasource.clearSelectedCompany();
   }
+
+  createCompany(request: CreateCompanyModel): Observable<void> {
+    return this.companyRemoteDatasource.createCompany(request);
+  }
 }
 
 export interface CompaniesListModel {
@@ -49,4 +53,28 @@ export interface CompanyListItemModel {
 export interface SelectedCompanyModel {
   id: string;
   name: string;
+}
+
+export interface CreateCompanyModel {
+  name: string;
+  document: string;
+  address: CreateCompanyAddressModel;
+  primaryAccount: CreateCompanyPayAccountModel;
+  intermediaryAccount: CreateCompanyPayAccountModel | null;
+}
+
+export interface CreateCompanyAddressModel {
+  addressLine1: string;
+  addressLine2: string | null;
+  city: string;
+  state: string;
+  postalCode: string;
+  countryCode: string;
+}
+
+export interface CreateCompanyPayAccountModel {
+  iban: string;
+  swift: string;
+  bankName: string;
+  bankAddress: string;
 }
