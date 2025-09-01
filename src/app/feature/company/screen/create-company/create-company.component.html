@@ -4,6 +4,7 @@
       <mat-card-content>
         <h1>Create Company</h1>
         <h2>Identity</h2>
+
         <mat-form-field appearance="outline">
           <mat-label>Company name</mat-label>
           <input matInput placeholder="Company name" formControlName="name" />
@@ -19,6 +20,9 @@
             placeholder="123.456.789-00"
             formControlName="document"
           />
+          @if (documentErrorText()) {
+          <mat-error>{{ documentErrorText() }}</mat-error>
+          }
         </mat-form-field>
 
         <h2>Address</h2>
@@ -29,6 +33,9 @@
             placeholder="Address Line 1"
             formControlName="addressLine1"
           />
+          @if (addressLine1()) {
+          <mat-error>{{ addressLine1() }}</mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -38,17 +45,26 @@
             placeholder="Address Line 2"
             formControlName="addressLine2"
           />
+          @if (addressLine2()) {
+          <mat-error>{{ addressLine2() }}</mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>City</mat-label>
           <input matInput placeholder="City" formControlName="city" />
+          @if (city()) {
+          <mat-error>{{ city() }}</mat-error>
+          }
         </mat-form-field>
 
         <div class="create-company-content-row">
           <mat-form-field appearance="outline">
             <mat-label>State</mat-label>
             <input matInput placeholder="State" formControlName="state" />
+            @if (state()) {
+            <mat-error>{{ state() }}</mat-error>
+            }
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -58,6 +74,9 @@
               placeholder="Postal Code"
               formControlName="postalCode"
             />
+            @if (postalCode()) {
+            <mat-error>{{ postalCode() }}</mat-error>
+            }
           </mat-form-field>
         </div>
 
@@ -71,6 +90,9 @@
               placeholder="Enter swift code"
               formControlName="primarySwift"
             />
+            @if (primarySwift()) {
+            <mat-error>{{ primarySwift() }}</mat-error>
+            }
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -80,6 +102,9 @@
               placeholder="Enter iban code"
               formControlName="primaryIban"
             />
+            @if (primaryIban()) {
+            <mat-error>{{ primaryIban() }}</mat-error>
+            }
           </mat-form-field>
         </div>
 
@@ -90,6 +115,9 @@
             placeholder="Enter bank name"
             formControlName="primaryBankName"
           />
+          @if (primaryBankName()) {
+          <mat-error>{{ primaryBankName() }}</mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -99,7 +127,18 @@
             placeholder="Enter bank address"
             formControlName="primaryBankAddress"
           />
+          @if (primaryBankAddress()) {
+          <mat-error>{{ primaryBankAddress() }}</mat-error>
+          }
         </mat-form-field>
+        <mat-divider></mat-divider>
+        <button
+          mat-flat-button
+          (click)="onSubmit()"
+          [disabled]="createCompanyForm.invalid"
+        >
+          Create company
+        </button>
       </mat-card-content>
     </mat-card>
   </form>
