@@ -11,6 +11,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import { MatCard } from "@angular/material/card";
 
 @Component({
   selector: "app-create-company",
@@ -21,6 +22,7 @@ import { MatIconModule } from "@angular/material/icon";
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatCard,
   ],
   templateUrl: "./create-company.component.html",
   styleUrl: "./create-company.component.css",
@@ -36,5 +38,13 @@ export class CreateCompanyComponent {
     city: new FormControl("", Validators.required),
     state: new FormControl("", Validators.required),
     postalCode: new FormControl("", Validators.required),
+    primaryIban: new FormControl("", Validators.required),
+    primarySwift: new FormControl("", Validators.required),
+    primaryBankName: new FormControl("", Validators.required),
+    primaryBankAddress: new FormControl("", Validators.required),
+    // intermediaryIban: new   FormControl("", Validators.required),
+    // intermediarySwift: new FormControl("", Validators.required),
+    // intermediaryBankName: new FormControl("", Validators.required),
+    // intermediaryBankAddress: new FormControl("", Validators.required),
   });
 }
