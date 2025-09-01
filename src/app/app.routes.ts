@@ -8,6 +8,7 @@ import { SignUpComponent } from "./feature/auth/screen/signup/signup.component";
 import { LoginComponent } from "./feature/auth/screen/login/login.component";
 import { HomeComponent } from "./feature/home/screen/home/home.component";
 import { NotFoundComponent } from "../core/screen/not-found/not-found.component";
+import { CreateCompanyComponent } from "./feature/company/screen/create-company/create-company.component";
 
 export const routes: Routes = [
   {
@@ -33,6 +34,11 @@ export const routes: Routes = [
   {
     path: "select-company",
     component: SelectCompanyComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "create-company",
+    component: CreateCompanyComponent,
     canActivate: [AuthGuard],
   },
   {
