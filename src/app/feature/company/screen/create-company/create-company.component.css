@@ -1,0 +1,30 @@
+.create-company-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.create-company-content form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.create-company-content mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.create-company-content-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.create-company-content-row mat-form-field {
+  flex: 1;
+}

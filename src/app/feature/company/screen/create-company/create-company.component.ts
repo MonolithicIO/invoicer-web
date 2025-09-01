@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit, signal } from "@angular/core";
 import { CreateCompanyService } from "../../service/create-company.service";
 import {
   FormControl,
@@ -11,7 +11,9 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { MatCard } from "@angular/material/card";
+import { MatCardModule } from "@angular/material/card";
+import { RequiredFieldFormField } from "./form-fields/create-company-form-fields";
+import { FormControlErrorWatcherGroup } from "../../../../../core/util/form-control-error-watcher";
 
 @Component({
   selector: "app-create-company",
@@ -22,12 +24,12 @@ import { MatCard } from "@angular/material/card";
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatCard,
+    MatCardModule,
   ],
   templateUrl: "./create-company.component.html",
   styleUrl: "./create-company.component.css",
 })
-export class CreateCompanyComponent {
+export class CreateCompanyComponent implements OnInit {
   private createService: CreateCompanyService = inject(CreateCompanyService);
 
   readonly createCompanyForm = new FormGroup({
@@ -47,4 +49,28 @@ export class CreateCompanyComponent {
     // intermediaryBankName: new FormControl("", Validators.required),
     // intermediaryBankAddress: new FormControl("", Validators.required),
   });
+
+  readonly nameErrorText = signal<string | null>("");
+  readonly documentErrorText = signal<string | null>("");
+
+  ngOnInit(): void {
+    this.identityFormFields.startWatchFormChanges();
+  }
+
+  private identityFormFields = new FormControlErrorWatcherGroup({
+    name: new RequiredFieldFormField(
+      "Company name",
+      this.getFormControllerByName("name"),
+      this.nameErrorText
+    ),
+    document: new RequiredFieldFormField(
+      "Document",
+      this.getFormControllerByName("document"),
+      this.documentErrorText
+    ),
+  });
+
+  private getFormControllerByName(name: string): FormControl {
+    return this.createCompanyForm.get(name) as FormControl;
+  }
 }
