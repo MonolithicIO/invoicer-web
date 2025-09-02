@@ -39,7 +39,7 @@ export interface CreateCompanyRequest {
   name: string;
   document: string;
   address: CreateCompanyAddressRequest;
-  primaryAccount: CreateCompanyPayAccountRequest;
+  paymentAccount: CreateCompanyPayAccountRequest;
   intermediaryAccount: CreateCompanyPayAccountRequest | null;
 }
 

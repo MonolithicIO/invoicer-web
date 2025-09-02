@@ -1,5 +1,8 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
-import { CreateCompanyService } from "../../service/create-company.service";
+import {
+  CreateCompanyPayAccountDto,
+  CreateCompanyService,
+} from "../../service/create-company.service";
 import {
   AbstractControl,
   FormControl,
@@ -18,6 +21,11 @@ import { RequiredFieldFormField } from "./form-fields/create-company-form-fields
 import { FormControlErrorWatcherGroup } from "../../../../../core/util/form-control-error-watcher";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatCheckbox } from "@angular/material/checkbox";
+import { nullIfEmpty } from "../../../../../core/util/string";
+import { ApiError } from "../../../../../core/network/model/ApiError";
+import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { CreateCompanyErrorDialogComponent } from "./views/create-company-error-dialog/create-company-error-dialog.component";
 
 @Component({
   selector: "app-create-company",
@@ -37,6 +45,8 @@ import { MatCheckbox } from "@angular/material/checkbox";
 })
 export class CreateCompanyComponent implements OnInit {
   private createService: CreateCompanyService = inject(CreateCompanyService);
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
 
   readonly useIntermediaryAccount = signal(false);
   readonly nameErrorText = signal<string | null>("");
@@ -184,7 +194,38 @@ export class CreateCompanyComponent implements OnInit {
   }
 
   onSubmit() {
-    alert("Not implemented yet");
+    this.createService
+      .createCompany({
+        name: this.getFormControllerByName("name").value,
+        document: this.getFormControllerByName("document").value,
+        address: {
+          addressLine1: this.getFormControllerByName("addressLine1").value,
+          addressLine2: nullIfEmpty(
+            this.getFormControllerByName("addressLine2").value
+          ),
+          city: this.getFormControllerByName("city").value,
+          state: this.getFormControllerByName("state").value,
+          postalCode: this.getFormControllerByName("postalCode").value,
+          countryCode: "BRA",
+        },
+        paymentAccount: {
+          iban: this.getFormControllerByName("primaryIban").value,
+          swift: this.getFormControllerByName("primarySwift").value,
+          bankName: this.getFormControllerByName("primaryBankName").value,
+          bankAddress: this.getFormControllerByName("primaryBankAddress").value,
+        },
+        intermediaryAccount: this.getIntermediaryAccountOrNull(),
+      })
+      .subscribe({
+        next: () => {
+          this.router.navigate(["/select-company"]);
+        },
+        error: (error: ApiError) => {
+          this.dialog.open(CreateCompanyErrorDialogComponent, {
+            data: { errorMessage: error.message },
+          });
+        },
+      });
   }
 
   onToggleIntermediaryUsage() {
@@ -196,6 +237,19 @@ export class CreateCompanyComponent implements OnInit {
       this.getFormControllerByName("intermediaryBankName").reset();
       this.getFormControllerByName("intermediaryBankAddress").reset();
     }
+  }
+
+  private getIntermediaryAccountOrNull(): CreateCompanyPayAccountDto | null {
+    if (!this.useIntermediaryAccount()) {
+      return null;
+    }
+    return {
+      iban: this.getFormControllerByName("intermediaryIban").value,
+      swift: this.getFormControllerByName("intermediarySwift").value,
+      bankName: this.getFormControllerByName("intermediaryBankName").value,
+      bankAddress: this.getFormControllerByName("intermediaryBankAddress")
+        .value,
+    };
   }
 }
 

@@ -15,7 +15,7 @@ export interface CreateCompanyDto {
   name: string;
   document: string;
   address: CreateCompanyAddressDto;
-  primaryAccount: CreateCompanyPayAccountDto;
+  paymentAccount: CreateCompanyPayAccountDto;
   intermediaryAccount: CreateCompanyPayAccountDto | null;
 }
 
