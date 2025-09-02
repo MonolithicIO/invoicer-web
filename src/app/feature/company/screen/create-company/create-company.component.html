@@ -1,0 +1,204 @@
+<main class="create-company-content">
+  <form [formGroup]="createCompanyForm">
+    <mat-card>
+      <mat-card-content>
+        <h1>Create Company</h1>
+        <h2>Identity</h2>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Company name</mat-label>
+          <input matInput placeholder="Company name" formControlName="name" />
+          @if (nameErrorText()) {
+          <mat-error>{{ nameErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Document</mat-label>
+          <input
+            matInput
+            placeholder="123.456.789-00"
+            formControlName="document"
+          />
+          @if (documentErrorText()) {
+          <mat-error>{{ documentErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <h2>Address</h2>
+        <mat-form-field appearance="outline">
+          <mat-label>Address Line 1</mat-label>
+          <input
+            matInput
+            placeholder="Address Line 1"
+            formControlName="addressLine1"
+          />
+          @if (addressLine1ErrorText()) {
+          <mat-error>{{ addressLine1ErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Address Line 2</mat-label>
+          <input
+            matInput
+            placeholder="Address Line 2"
+            formControlName="addressLine2"
+          />
+          @if (addressLine2ErrorText()) {
+          <mat-error>{{ addressLine2ErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" formControlName="city" />
+          @if (cityErrorText()) {
+          <mat-error>{{ cityErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="create-company-content-row">
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <input matInput placeholder="State" formControlName="state" />
+            @if (stateErrorText()) {
+            <mat-error>{{ stateErrorText() }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Postal Code</mat-label>
+            <input
+              matInput
+              placeholder="Postal Code"
+              formControlName="postalCode"
+            />
+            @if (postalCodeErrorText()) {
+            <mat-error>{{ postalCodeErrorText() }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+        <h2>Primary account</h2>
+
+        <div class="create-company-content-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Swift Code</mat-label>
+            <input
+              matInput
+              placeholder="Enter swift code"
+              formControlName="primarySwift"
+            />
+            @if (primarySwiftErrorText()) {
+            <mat-error>{{ primarySwiftErrorText() }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Iban Code</mat-label>
+            <input
+              matInput
+              placeholder="Enter iban code"
+              formControlName="primaryIban"
+            />
+            @if (primaryIbanErrorText()) {
+            <mat-error>{{ primaryIbanErrorText() }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bank name</mat-label>
+          <input
+            matInput
+            placeholder="Enter bank name"
+            formControlName="primaryBankName"
+          />
+          @if (primaryBankNameErrorText()) {
+          <mat-error>{{ primaryBankNameErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bank Address</mat-label>
+          <input
+            matInput
+            placeholder="Enter bank address"
+            formControlName="primaryBankAddress"
+          />
+          @if (primaryBankAddressErrorText()) {
+          <mat-error>{{ primaryBankAddressErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-checkbox (change)="onToggleIntermediaryUsage()">
+          Use intermediary account
+        </mat-checkbox>
+
+        @if (useIntermediaryAccount()) {
+        <h2>Intermediary account</h2>
+
+        <div class="create-company-content-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Swift Code</mat-label>
+            <input
+              matInput
+              placeholder="Enter swift code"
+              formControlName="intermediarySwift"
+            />
+            @if (intermediarySwiftErrorText()) {
+            <mat-error>{{ intermediarySwiftErrorText() }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Iban Code</mat-label>
+            <input
+              matInput
+              placeholder="Enter iban code"
+              formControlName="intermediaryIban"
+            />
+            @if (intermediaryIbanErrorText()) {
+            <mat-error>{{ intermediaryIbanErrorText() }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bank name</mat-label>
+          <input
+            matInput
+            placeholder="Enter bank name"
+            formControlName="intermediaryBankName"
+          />
+          @if (intermediaryBankNameErrorText ()) {
+          <mat-error>{{ intermediaryBankNameErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bank Address</mat-label>
+          <input
+            matInput
+            placeholder="Enter bank address"
+            formControlName="intermediaryBankAddress"
+          />
+          @if (intermediaryBankAddressErrorText()) {
+          <mat-error>{{ intermediaryBankAddressErrorText() }}</mat-error>
+          }
+        </mat-form-field>
+        }
+        <mat-divider></mat-divider>
+        <button
+          mat-flat-button
+          (click)="onSubmit()"
+          [disabled]="createCompanyForm.invalid"
+        >
+          Create company
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</main>

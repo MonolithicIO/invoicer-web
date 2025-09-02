@@ -86,7 +86,7 @@ export class SelectCompanyComponent implements OnInit {
   }
 
   onCreateNewClick() {
-    alert("Not implemented yet");
+    this.router.navigate(["/create-company"]);
   }
 }
 
