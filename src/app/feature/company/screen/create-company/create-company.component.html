@@ -194,9 +194,13 @@
         <button
           mat-flat-button
           (click)="onSubmit()"
-          [disabled]="createCompanyForm.invalid"
+          [disabled]="createCompanyForm.invalid || isLoading()"
         >
-          Create company
+          @if(isLoading()) {
+          <mat-spinner [strokeWidth]="3" [diameter]="24" />
+          }@else {
+          <span>Create company</span>
+          }
         </button>
       </mat-card-content>
     </mat-card>

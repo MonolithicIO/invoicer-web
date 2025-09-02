@@ -26,6 +26,8 @@ import { ApiError } from "../../../../../core/network/model/ApiError";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { CreateCompanyErrorDialogComponent } from "./views/create-company-error-dialog/create-company-error-dialog.component";
+import { tap } from "rxjs";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
   selector: "app-create-company",
@@ -39,6 +41,7 @@ import { CreateCompanyErrorDialogComponent } from "./views/create-company-error-
     MatCardModule,
     MatDividerModule,
     MatCheckbox,
+    MatProgressSpinnerModule,
   ],
   templateUrl: "./create-company.component.html",
   styleUrl: "./create-company.component.css",
@@ -48,6 +51,7 @@ export class CreateCompanyComponent implements OnInit {
   private router = inject(Router);
   private dialog = inject(MatDialog);
 
+  readonly isLoading = signal(false);
   readonly useIntermediaryAccount = signal(false);
   readonly nameErrorText = signal<string | null>("");
   readonly documentErrorText = signal<string | null>("");
@@ -216,6 +220,16 @@ export class CreateCompanyComponent implements OnInit {
         },
         intermediaryAccount: this.getIntermediaryAccountOrNull(),
       })
+      .pipe(
+        tap({
+          subscribe: () => {
+            this.isLoading.set(true);
+          },
+          finalize: () => {
+            this.isLoading.set(false);
+          },
+        })
+      )
       .subscribe({
         next: () => {
           this.router.navigate(["/select-company"]);
