@@ -1,9 +1,4 @@
 .app-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #e1e5e9;

@@ -1,0 +1,19 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.main-router {
+  flex: 1;
+  padding-top: 64px;
+}
