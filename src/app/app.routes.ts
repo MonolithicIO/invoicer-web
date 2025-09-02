@@ -13,7 +13,7 @@ import { CreateCompanyComponent } from "./feature/company/screen/create-company/
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "/home",
+    redirectTo: "user/home",
     pathMatch: "full",
   },
   {
@@ -27,17 +27,17 @@ export const routes: Routes = [
     canActivate: [NoAuthGuard],
   },
   {
-    path: "home",
+    path: "user/home",
     component: HomeComponent,
     canActivate: [AuthGuard, CompanySelectedGuard],
   },
   {
-    path: "select-company",
+    path: "user/select-company",
     component: SelectCompanyComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: "create-company",
+    path: "user/create-company",
     component: CreateCompanyComponent,
     canActivate: [AuthGuard],
   },

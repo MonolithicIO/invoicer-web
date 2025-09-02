@@ -4,6 +4,10 @@ import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class SessionRepository {
+  constructor() {
+    this.refreshSession();
+  }
+
   private readonly companyDatasource = inject(CompanyLocalDatasource);
 
   private readonly currentCompany =

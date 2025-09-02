@@ -2,19 +2,15 @@
 <header class="app-header">
   <nav class="navbar">
     <div class="navbar-container">
-      <!-- Logo/Brand -->
       <div class="navbar-brand">
         <span class="brand-text">Invoicer</span>
       </div>
 
-      <!-- User Menu -->
-      @if (isLoggedIn()) {
       <div class="user-menu">
         <div class="user-info">
           <span class="user-name">{{ companyName() }}</span>
         </div>
 
-        <!-- Dropdown Menu -->
         <div class="dropdown">
           <button
             class="dropdown-toggle"
@@ -41,7 +37,6 @@
           </div>
         </div>
       </div>
-      }
     </div>
   </nav>
 </header>
