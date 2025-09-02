@@ -1,10 +1,12 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
 import { CreateCompanyService } from "../../service/create-company.service";
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -15,6 +17,7 @@ import { MatCardModule } from "@angular/material/card";
 import { RequiredFieldFormField } from "./form-fields/create-company-form-fields";
 import { FormControlErrorWatcherGroup } from "../../../../../core/util/form-control-error-watcher";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatCheckbox } from "@angular/material/checkbox";
 
 @Component({
   selector: "app-create-company",
@@ -27,12 +30,30 @@ import { MatDividerModule } from "@angular/material/divider";
     MatIconModule,
     MatCardModule,
     MatDividerModule,
+    MatCheckbox,
   ],
   templateUrl: "./create-company.component.html",
   styleUrl: "./create-company.component.css",
 })
 export class CreateCompanyComponent implements OnInit {
   private createService: CreateCompanyService = inject(CreateCompanyService);
+
+  readonly useIntermediaryAccount = signal(false);
+  readonly nameErrorText = signal<string | null>("");
+  readonly documentErrorText = signal<string | null>("");
+  readonly addressLine1ErrorText = signal<string | null>(null);
+  readonly addressLine2ErrorText = signal<string | null>(null);
+  readonly cityErrorText = signal<string | null>(null);
+  readonly stateErrorText = signal<string | null>(null);
+  readonly postalCodeErrorText = signal<string | null>(null);
+  readonly primaryIbanErrorText = signal<string | null>(null);
+  readonly primarySwiftErrorText = signal<string | null>(null);
+  readonly primaryBankNameErrorText = signal<string | null>(null);
+  readonly primaryBankAddressErrorText = signal<string | null>(null);
+  readonly intermediaryIbanErrorText = signal<string | null>(null);
+  readonly intermediarySwiftErrorText = signal<string | null>(null);
+  readonly intermediaryBankNameErrorText = signal<string | null>(null);
+  readonly intermediaryBankAddressErrorText = signal<string | null>(null);
 
   readonly createCompanyForm = new FormGroup({
     name: new FormControl("", Validators.required),
@@ -46,30 +67,29 @@ export class CreateCompanyComponent implements OnInit {
     primarySwift: new FormControl("", Validators.required),
     primaryBankName: new FormControl("", Validators.required),
     primaryBankAddress: new FormControl("", Validators.required),
-    // intermediaryIban: new   FormControl("", Validators.required),
-    // intermediarySwift: new FormControl("", Validators.required),
-    // intermediaryBankName: new FormControl("", Validators.required),
-    // intermediaryBankAddress: new FormControl("", Validators.required),
+    intermediaryIban: new FormControl(
+      "",
+      requiredIfSignalTrue(this.useIntermediaryAccount)
+    ),
+    intermediarySwift: new FormControl(
+      "",
+      requiredIfSignalTrue(this.useIntermediaryAccount)
+    ),
+    intermediaryBankName: new FormControl(
+      "",
+      requiredIfSignalTrue(this.useIntermediaryAccount)
+    ),
+    intermediaryBankAddress: new FormControl(
+      "",
+      requiredIfSignalTrue(this.useIntermediaryAccount)
+    ),
   });
-
-  readonly nameErrorText = signal<string | null>("");
-  readonly documentErrorText = signal<string | null>("");
-  readonly name = signal<string | null>(null);
-  readonly document = signal<string | null>(null);
-  readonly addressLine1 = signal<string | null>(null);
-  readonly addressLine2 = signal<string | null>(null);
-  readonly city = signal<string | null>(null);
-  readonly state = signal<string | null>(null);
-  readonly postalCode = signal<string | null>(null);
-  readonly primaryIban = signal<string | null>(null);
-  readonly primarySwift = signal<string | null>(null);
-  readonly primaryBankName = signal<string | null>(null);
-  readonly primaryBankAddress = signal<string | null>(null);
 
   ngOnInit(): void {
     this.identityWatcherGroup.startWatchFormChanges();
     this.addressWatcherGroup.startWatchFormChanges();
     this.primaryAccountWatcher.startWatchFormChanges();
+    this.intermediaryAccountWatcher.startWatchFormChanges();
   }
 
   private identityWatcherGroup = new FormControlErrorWatcherGroup({
@@ -89,27 +109,27 @@ export class CreateCompanyComponent implements OnInit {
     addressLine1: new RequiredFieldFormField(
       "Address Line 1",
       this.getFormControllerByName("addressLine1"),
-      this.addressLine1
+      this.addressLine1ErrorText
     ),
     addressLine2: new RequiredFieldFormField(
       "Address Line 2",
       this.getFormControllerByName("addressLine2"),
-      this.addressLine2
+      this.addressLine2ErrorText
     ),
     city: new RequiredFieldFormField(
       "City",
       this.getFormControllerByName("city"),
-      this.city
+      this.cityErrorText
     ),
     state: new RequiredFieldFormField(
       "State",
       this.getFormControllerByName("state"),
-      this.state
+      this.stateErrorText
     ),
     postalCode: new RequiredFieldFormField(
       "Postal Code",
       this.getFormControllerByName("postalCode"),
-      this.postalCode
+      this.postalCodeErrorText
     ),
   });
 
@@ -117,22 +137,45 @@ export class CreateCompanyComponent implements OnInit {
     primaryIban: new RequiredFieldFormField(
       "IBAN",
       this.getFormControllerByName("primaryIban"),
-      this.primaryIban
+      this.primaryIbanErrorText
     ),
     primarySwift: new RequiredFieldFormField(
       "SWIFT",
       this.getFormControllerByName("primarySwift"),
-      this.primarySwift
+      this.primarySwiftErrorText
     ),
     primaryBankName: new RequiredFieldFormField(
       "Bank Name",
       this.getFormControllerByName("primaryBankName"),
-      this.primaryBankName
+      this.primaryBankNameErrorText
     ),
     primaryBankAddress: new RequiredFieldFormField(
       "Bank Address",
       this.getFormControllerByName("primaryBankAddress"),
-      this.primaryBankAddress
+      this.primaryBankAddressErrorText
+    ),
+  });
+
+  private intermediaryAccountWatcher = new FormControlErrorWatcherGroup({
+    intermediaryIban: new RequiredFieldFormField(
+      "IBAN",
+      this.getFormControllerByName("intermediaryIban"),
+      this.intermediaryIbanErrorText
+    ),
+    intermediarySwift: new RequiredFieldFormField(
+      "SWIFT",
+      this.getFormControllerByName("intermediarySwift"),
+      this.intermediarySwiftErrorText
+    ),
+    intermediaryBankName: new RequiredFieldFormField(
+      "Bank Name",
+      this.getFormControllerByName("intermediaryBankName"),
+      this.intermediaryBankNameErrorText
+    ),
+    intermediaryBankAddress: new RequiredFieldFormField(
+      "Bank Address",
+      this.getFormControllerByName("intermediaryBankAddress"),
+      this.intermediaryBankAddressErrorText
     ),
   });
 
@@ -143,4 +186,24 @@ export class CreateCompanyComponent implements OnInit {
   onSubmit() {
     alert("Not implemented yet");
   }
+
+  onToggleIntermediaryUsage() {
+    const newValue = !this.useIntermediaryAccount();
+    this.useIntermediaryAccount.set(newValue);
+    if (!newValue) {
+      this.getFormControllerByName("intermediaryIban").reset();
+      this.getFormControllerByName("intermediarySwift").reset();
+      this.getFormControllerByName("intermediaryBankName").reset();
+      this.getFormControllerByName("intermediaryBankAddress").reset();
+    }
+  }
+}
+
+function requiredIfSignalTrue(signalFn: () => boolean): ValidatorFn {
+  return (control: AbstractControl) => {
+    if (signalFn() && !control.value) {
+      return { required: true };
+    }
+    return null;
+  };
 }
