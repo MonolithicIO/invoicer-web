@@ -1,0 +1,48 @@
+@if (showHeader()) {
+<header class="app-header">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <!-- Logo/Brand -->
+      <div class="navbar-brand">
+        <span class="brand-text">Invoicer</span>
+      </div>
+
+      <!-- User Menu -->
+      @if (isLoggedIn()) {
+      <div class="user-menu">
+        <div class="user-info">
+          <span class="user-name">{{ companyName() }}</span>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown">
+          <button
+            class="dropdown-toggle"
+            type="button"
+            aria-label="Menu do usuário"
+            [attr.aria-expanded]="dropdownOpen()"
+          >
+            <i class="icon-chevron-down"></i>
+          </button>
+          <div class="dropdown-menu" [class.show]="dropdownOpen()" role="menu">
+            <a class="dropdown-item" role="menuitem">
+              <i class="icon-user"></i>
+              Meu Perfil
+            </a>
+            <a class="dropdown-item" role="menuitem">
+              <i class="icon-settings"></i>
+              Configurações
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item logout" role="menuitem">
+              <i class="icon-logout"></i>
+              Sair
+            </a>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </nav>
+</header>
+}
