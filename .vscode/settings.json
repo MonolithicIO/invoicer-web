@@ -13,7 +13,12 @@
   "editor.fontLigatures": true,
   "material-icon-theme.folders.associations": {
     "feature": "components",
-    "datasource": "class"
+    "datasource": "class",
+    "feature/auth": "context",
+    "feature/company": "context",
+    "feature/global": "context",
+    "feature/home": "context",
+    "feature/session": "context"
   },
   "material-icon-theme.files.associations": {
     "**.datasource.ts": "angular",
