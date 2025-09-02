@@ -9,6 +9,11 @@
       <div class="user-menu">
         <div class="user-info">
           <span class="user-name">{{ companyName() }}</span>
+          @if(showChangeCompanyButton()) {
+          <button mat-icon-button (click)="onChangeCompanyClick()">
+            <mat-icon>login</mat-icon>
+          </button>
+          }
         </div>
 
         <div class="dropdown">
