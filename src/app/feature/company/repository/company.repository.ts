@@ -59,7 +59,7 @@ export interface CreateCompanyModel {
   name: string;
   document: string;
   address: CreateCompanyAddressModel;
-  primaryAccount: CreateCompanyPayAccountModel;
+  paymentAccount: CreateCompanyPayAccountModel;
   intermediaryAccount: CreateCompanyPayAccountModel | null;
 }
 
