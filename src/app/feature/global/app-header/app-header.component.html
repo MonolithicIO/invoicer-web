@@ -9,36 +9,28 @@
       <div class="user-menu">
         <div class="user-info">
           <span class="user-name">{{ companyName() }}</span>
-          @if(showChangeCompanyButton()) {
-          <button mat-icon-button (click)="onChangeCompanyClick()">
-            <mat-icon>login</mat-icon>
-          </button>
-          }
         </div>
 
         <div class="dropdown">
           <button
+            mat-icon-button
             class="dropdown-toggle"
             type="button"
             aria-label="Menu do usuário"
             [attr.aria-expanded]="dropdownOpen()"
           >
-            <i class="icon-chevron-down"></i>
+            <mat-icon>account_circle</mat-icon>
           </button>
           <div class="dropdown-menu" [class.show]="dropdownOpen()" role="menu">
-            <a class="dropdown-item" role="menuitem">
-              <i class="icon-user"></i>
-              Meu Perfil
-            </a>
-            <a class="dropdown-item" role="menuitem">
-              <i class="icon-settings"></i>
-              Configurações
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item logout" role="menuitem">
-              <i class="icon-logout"></i>
-              Sair
-            </a>
+            <button mat-button role="menuitem">Profile</button>
+            <button mat-button (click)="onChangeCompanyClick()" role="menuitem">
+              Change company
+            </button>
+            <button mat-button role="menuitem">Settings</button>
+            <mat-divider></mat-divider>
+            <button mat-button role="menuitem" (click)="onLogoutClick()">
+              <span class="logout-text">Logout</span>
+            </button>
           </div>
         </div>
       </div>
