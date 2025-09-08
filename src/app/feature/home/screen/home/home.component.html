@@ -1,4 +1,14 @@
-<main class="login-container">
-  <p>home works!</p>
-  <button (click)="logout()">Logout</button>
+<main class="home-container">
+  <section class="home-cards">
+    <mat-card (click)="onInvoiceClick()">
+      <mat-card-content>
+        <mat-card-title>Invoice</mat-card-title>
+      </mat-card-content>
+    </mat-card>
+    <mat-card (click)="onCustomerClick()">
+      <mat-card-content>
+        <mat-card-title>Customer</mat-card-title>
+      </mat-card-content>
+    </mat-card>
+  </section>
 </main>
