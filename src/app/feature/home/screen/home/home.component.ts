@@ -1,22 +1,21 @@
 import { Component, inject } from "@angular/core";
 import { Router } from "@angular/router";
-import { LogoutService } from "../../../auth/service/logout.service";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
   selector: "app-home",
-  imports: [],
+  imports: [MatCardModule],
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.css",
 })
 export class HomeComponent {
-  private logoutService = inject(LogoutService);
   private router = inject(Router);
 
-  logout() {
-    this.logoutService.logout().subscribe({
-      next: () => {
-        this.router.navigate(["/login"]);
-      },
-    });
+  onInvoiceClick() {
+    alert("Not yet implemented");
+  }
+
+  onCustomerClick() {
+    alert("Not yet implemented");
   }
 }

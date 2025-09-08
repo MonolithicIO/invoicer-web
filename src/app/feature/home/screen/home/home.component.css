@@ -1,8 +1,23 @@
-.login-container {
+.home-container {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.home-cards {
+  display: flex;
+  width: 50%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.home-cards mat-card:hover {
+  cursor: pointer;
+  scale: 1.05;
+  border: 1px solid lightgray;
 }
