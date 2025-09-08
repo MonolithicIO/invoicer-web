@@ -232,7 +232,7 @@ export class CreateCompanyComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.router.navigate(["/select-company"]);
+          this.router.navigate(["/user/select-company"]);
         },
         error: (error: ApiError) => {
           this.dialog.open(CreateCompanyErrorDialogComponent, {
