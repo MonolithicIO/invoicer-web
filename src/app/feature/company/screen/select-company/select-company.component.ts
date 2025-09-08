@@ -57,7 +57,7 @@ export class SelectCompanyComponent implements OnInit {
         name: company.name,
         id: company.id,
       });
-      this.router.navigate(["/home"]);
+      this.router.navigate(["user/home"]);
     }
   }
 
@@ -86,7 +86,7 @@ export class SelectCompanyComponent implements OnInit {
   }
 
   onCreateNewClick() {
-    this.router.navigate(["/create-company"]);
+    this.router.navigate(["user/create-company"]);
   }
 }
 

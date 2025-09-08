@@ -1,0 +1,40 @@
+@if (showHeader()) {
+<header class="app-header">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-brand">
+        <span class="brand-text">Invoicer</span>
+      </div>
+
+      <div class="user-menu">
+        <div class="user-info">
+          <span class="user-name">{{ companyName() }}</span>
+        </div>
+
+        <div class="dropdown">
+          <button
+            mat-icon-button
+            class="dropdown-toggle"
+            type="button"
+            aria-label="Menu do usuário"
+            [attr.aria-expanded]="dropdownOpen()"
+          >
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <div class="dropdown-menu" [class.show]="dropdownOpen()" role="menu">
+            <button mat-button role="menuitem">Profile</button>
+            <button mat-button (click)="onChangeCompanyClick()" role="menuitem">
+              Change company
+            </button>
+            <button mat-button role="menuitem">Settings</button>
+            <mat-divider></mat-divider>
+            <button mat-button role="menuitem" (click)="onLogoutClick()">
+              <span class="logout-text">Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+}

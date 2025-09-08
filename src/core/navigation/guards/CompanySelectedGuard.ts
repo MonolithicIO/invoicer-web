@@ -11,7 +11,7 @@ export const CompanySelectedGuard: CanActivateFn = () => {
   if (isCompanySelected) {
     return true;
   } else {
-    router.navigate(["/select-company"]);
+    router.navigate(["user/select-company"]);
     return false;
   }
 };
